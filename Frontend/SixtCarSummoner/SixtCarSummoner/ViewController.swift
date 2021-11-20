@@ -454,11 +454,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         //show alert
         SPAlert.present(title: "Success", message: "", preset: .done)
         
-        //send requests
+        
+        
         let jsonObject: NSMutableDictionary = NSMutableDictionary()
-
+   
         jsonObject.setValue(userUID, forKey: "uid")
-
+        
         let jsonData: NSData
 
         do {
@@ -469,7 +470,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 print("error")
                 return
             }
-    
+            
             var request = URLRequest(url: url)
             
             request.httpMethod = "POST"
@@ -477,6 +478,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             
             let httpBody = jsonData
 
+            request.httpBody = httpBody as Data
+            let jsonString = NSString(data: httpBody as Data, encoding: String.Encoding.utf8.rawValue)! as String
+            print(jsonString)
             
             let session = URLSession.shared
             session.dataTask(with: request) { (data, response, error) in
@@ -487,6 +491,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     }
                     return
                 }
+                
+                                
                 if let data = data{
                     let jsonString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
                     print(jsonString)
@@ -496,22 +502,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     
                         self.carArray.removeAll()
                         let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
-                        let duration = jsonObject.value(forKey: "duration") as! Int
-                            
-                        DispatchQueue.main.async {
-                            //set time label
-                            self.timeLable.text = String(duration / 60)
-                        }
+                        let time = jsonObject.value(forKey: "duration") as! Int
+                        print(time)
                         
-                        
-                    } catch _ {
+                    } catch let error {
                         print(error)
                     }
-                
                 }
                 
             }.resume()
-
             
         } catch _ {
             print ("JSON Failure")
