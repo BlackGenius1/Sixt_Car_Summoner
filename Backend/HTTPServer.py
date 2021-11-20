@@ -59,6 +59,7 @@ def main():
 
 if __name__ == "__main__":
     #main()
+    print(getVehicles())
     print(getVehicles()[2])
     updateCoordinatesOfVehicle(getVehicles()[2]["vehicleID"],3,4)
     updateBatteryChargeOfVehicle(getVehicles()[2]["vehicleID"],100)
