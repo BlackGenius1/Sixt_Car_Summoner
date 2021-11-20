@@ -163,7 +163,7 @@ class requestHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('content-type', 'text/html')
             self.end_headers()
-            data = post_data
+            print(data)
             out = getBestVehicle((data['lat2'], data['lng2']), (data['lat1'], data['lng1']), getVehicles())
             if out:
                 potential_jobs.append(createJob((data['lat1'], data['lng1']),(data['lat2'], data['lng2']), data['uid'], data['vehicleID']))
