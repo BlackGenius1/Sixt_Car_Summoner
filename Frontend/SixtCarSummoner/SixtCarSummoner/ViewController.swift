@@ -487,8 +487,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     }
                     return
                 }
-                
-                                
                 if let data = data{
                     let jsonString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
                     print(jsonString)
@@ -500,11 +498,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
                         let duration = jsonObject.value(forKey: "duration") as! Int
                             
-                        //set time label
-                        self.timeLable.text = String(duration / 60)
+                        DispatchQueue.main.async {
+                            //set time label
+                            self.timeLable.text = String(duration / 60)
+                        }
+                        
                         
                     } catch _ {
-                    print(error)
+                        print(error)
                     }
                 
                 }
