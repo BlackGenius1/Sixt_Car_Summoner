@@ -51,7 +51,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFb-P7-zrO">
-                                <rect key="frame" x="358" y="94" width="40" height="40"/>
+                                <rect key="frame" x="358" y="114" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="hFu-gh-sOE"/>
                                     <constraint firstAttribute="height" constant="40" id="uEP-hl-RNr"/>
@@ -65,7 +65,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c5L-iU-HKw">
-                                <rect key="frame" x="16" y="94" width="40" height="40"/>
+                                <rect key="frame" x="16" y="114" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="JWi-Ig-MhL"/>
                                     <constraint firstAttribute="width" constant="40" id="Zhr-Iz-5qD"/>
@@ -79,7 +79,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o8a-jn-8KK">
-                                <rect key="frame" x="358" y="149" width="40" height="40"/>
+                                <rect key="frame" x="358" y="169" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="MKY-2z-zqO"/>
                                     <constraint firstAttribute="height" constant="40" id="dWo-my-DCx"/>
@@ -105,7 +105,7 @@
                                 </buttonConfiguration>
                             </button>
                             <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cjA-mo-8VB">
-                                <rect key="frame" x="16" y="94" width="272" height="95"/>
+                                <rect key="frame" x="16" y="114" width="272" height="95"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estimated Time of Arrival:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Po-Wb-4E3">
                                         <rect key="frame" x="20" y="8" width="210" height="28"/>
@@ -151,13 +151,13 @@
                             <constraint firstItem="cjA-mo-8VB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="KAs-Wi-sTk"/>
                             <constraint firstItem="Hie-oi-sdQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="Oei-9U-oBS"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rFb-P7-zrO" secondAttribute="trailing" constant="16" id="PhU-R7-0o4"/>
-                            <constraint firstItem="c5L-iU-HKw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="STF-Wo-0FB"/>
-                            <constraint firstItem="rFb-P7-zrO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="aIV-R1-j2W"/>
+                            <constraint firstItem="c5L-iU-HKw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="STF-Wo-0FB"/>
+                            <constraint firstItem="rFb-P7-zrO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="aIV-R1-j2W"/>
                             <constraint firstItem="c5L-iU-HKw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="mtC-p0-HJv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qKY-1O-ajF" secondAttribute="trailing" id="onf-V9-dz9"/>
                             <constraint firstItem="qKY-1O-ajF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qPx-yL-yUC"/>
                             <constraint firstItem="qKY-1O-ajF" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="uir-0x-1Ge"/>
-                            <constraint firstItem="cjA-mo-8VB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="v3t-Fr-kwP"/>
+                            <constraint firstItem="cjA-mo-8VB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="v3t-Fr-kwP"/>
                             <constraint firstItem="o8a-jn-8KK" firstAttribute="top" secondItem="rFb-P7-zrO" secondAttribute="bottom" constant="15" id="xK4-Py-Xxw"/>
                         </constraints>
                     </view>
@@ -283,7 +283,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="fMj-0Z-QHk"/>
                                 </constraints>
-                                <color key="tintColor" red="0.80969583990000005" green="0.3817346096" blue="0.31762191649999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Show Results">
                                     <fontDescription key="titleFontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>

@@ -7,6 +7,7 @@ target 'SixtCarSummoner' do
 
   # Pods for SixtCarSummoner
   pod 'Hero'
+  pod 'SPAlert'
 
   target 'SixtCarSummonerTests' do
     inherit! :search_paths

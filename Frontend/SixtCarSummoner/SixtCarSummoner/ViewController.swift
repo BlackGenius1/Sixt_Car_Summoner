@@ -9,6 +9,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import Hero
+import SPAlert
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
 
@@ -24,10 +25,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var timeLable: UILabel!
     @IBOutlet weak var timeDescriptionLable: UILabel!
     
+    //TODO coordinate errors abfangen
     
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 1000
     var isSatellite = false
+    
+    //jsontags
+    let userUID = "1111111111111111"
+    struct Car{
+        var lat: String
+        var lon: String
+        var charge: String
+    }
+    var carArray = [Car]()
     
     //for Route Calculation
     var from: String = ""
@@ -60,6 +71,97 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                                name:Notification.Name(rawValue: "CALCULATEROUTE"),
                                                object: nil)//register for notification
         
+        //-------------------------
+        
+        //send login request to server -------
+        
+        let jsonObject: NSMutableDictionary = NSMutableDictionary()
+
+        jsonObject.setValue(userUID, forKey: "uid")
+
+        let jsonData: NSData
+
+        do {
+            jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions()) as NSData
+            
+            //post data
+            guard let url = URL(string: "http://85.214.129.142:8000/login") else {
+                print("error")
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            let httpBody = jsonData
+
+            request.httpBody = httpBody as Data
+            let jsonString = NSString(data: httpBody as Data, encoding: String.Encoding.utf8.rawValue)! as String
+            print(jsonString)
+            
+            let session = URLSession.shared
+            session.dataTask(with: request) { (data, response, error) in
+                if error != nil {
+                    DispatchQueue.main.async {
+                        let alertView = SPAlertView(title: "Verbindung fehlgeschlagen!", message: "Überprüfe deine Internetverbindung und versuche es erneut.", preset: SPAlertPreset.error)
+                        alertView.present()
+                    }
+                    return
+                }
+                
+                if let data = data{
+                    let jsonString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
+                    print(jsonString)
+                    do {
+                        let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
+                        if let content = jsonObject[""] as? [[String:String]] {
+                            
+                            if !content.isEmpty{
+                                for item in content {
+                                    let lat = item["lat"]
+                                    let lon = item["lng"]
+                                    let charge = item["charge"]
+                                    //object
+                                    let car = Car(lat: lat!, lon: lon!, charge: charge!)
+                                    self.carArray.append(car)
+                                    
+                                    //show cars on the map
+                                    
+                                    DispatchQueue.main.async {
+                                        var carAnnotations = [MKPointAnnotation]()
+                                        for car in self.carArray{
+                                            let carDestination = MKPointAnnotation()
+                                            let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: Double(car.lat)!, longitude: Double(car.lon)!), addressDictionary: nil)
+                                            let carAnnotation = MKPointAnnotation()
+                                            if let location = destinationPlacemark.location {
+                                                carAnnotation.coordinate = location.coordinate
+                                            }
+                                            carAnnotations.append(carAnnotation)
+                                            
+                                        }
+                                        self.mapView.showAnnotations(carAnnotations, animated: true )
+                                    }
+                                }
+                                
+                            }
+                        }
+                        
+                    } catch let error {
+                        print(error)
+                    }
+                }
+                
+            }.resume()
+            
+        } catch _ {
+            print ("JSON Failure")
+            print("error")
+        }
+        
+        //---------------
+    
     }
     
     //MAPFUNCTIONS-------------------------------------------------------
@@ -110,16 +212,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if let to = notification.userInfo?["to"] as? String {
             self.to = to
         }
-        showDirection(from: from, to: to)
-        orderButton.layer.isHidden = false
-        cancelOrderButton.layer.isHidden = false
+        if showDirectionSuccess(from: from, to: to){
+            orderButton.layer.isHidden = false
+            cancelOrderButton.layer.isHidden = false
+            searchButton.isEnabled = false
+        }
+        
     }
     
-    func showDirection(from: String, to: String){
+    func showDirectionSuccess(from: String, to: String) ->Bool{
+        
         //get coordinates for string
         var geocoder = CLGeocoder()
         var fromCoordinate = CLLocationCoordinate2D()
         var toCoordinate = CLLocationCoordinate2D()
+        var success = true
     
         if from == "MyLocation" || from == "My Location"{
             fromCoordinate = CLLocationCoordinate2D(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!)
@@ -128,9 +235,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 let placemark = placemarks?.first
                 let latTo = placemark?.location?.coordinate.latitude
                 let lonTo = placemark?.location?.coordinate.longitude
-                toCoordinate = CLLocationCoordinate2D(latitude: latTo!, longitude: lonTo!)
-                self.showRouteOnMap(pickupCoordinate: fromCoordinate, destinationCoordinate: toCoordinate)
-                //self.mapView(self.mapView, rendererFor: <#T##MKOverlay#>)
+  
+                if latTo == nil || lonTo == nil{
+                    SPAlert.present(title: "Error", message: "Sorry, we couldn't find any route", preset: .error)
+                    success = false
+                    self.orderButton.layer.isHidden = true
+                    self.cancelOrderButton.layer.isHidden = true
+                    self.searchButton.isEnabled = true
+                }else{
+                    toCoordinate = CLLocationCoordinate2D(latitude: latTo!, longitude: lonTo!)
+                    self.showRouteOnMap(pickupCoordinate: fromCoordinate, destinationCoordinate: toCoordinate)
+                }
+
             }
         }else if to == "MyLocation" || to == "My Location"{
             toCoordinate = CLLocationCoordinate2D(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!)
@@ -139,9 +255,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 let placemark = placemarks?.first
                 let lat = placemark?.location?.coordinate.latitude
                 let lon = placemark?.location?.coordinate.longitude
-                fromCoordinate = CLLocationCoordinate2D(latitude: lat!, longitude: lon!)
-                self.showRouteOnMap(pickupCoordinate: fromCoordinate, destinationCoordinate: toCoordinate)
-                //self.mapView(self.mapView, rendererFor: <#T##MKOverlay#>)
+                
+                if lat == nil || lon == nil{
+                    SPAlert.present(title: "Error", message: "Sorry, we couldn't find any route", preset: .error)
+                    success = false
+                    self.orderButton.layer.isHidden = true
+                    self.cancelOrderButton.layer.isHidden = true
+                    self.searchButton.isEnabled = true
+                }else{
+                    fromCoordinate = CLLocationCoordinate2D(latitude: lat!, longitude: lon!)
+                    self.showRouteOnMap(pickupCoordinate: fromCoordinate, destinationCoordinate: toCoordinate)
+                }
+                
             }
             
         }else{
@@ -150,6 +275,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 let placemark = placemarks?.first
                 let lat = placemark?.location?.coordinate.latitude
                 let lon = placemark?.location?.coordinate.longitude
+                
+                if lat == nil || lon == nil{
+                    SPAlert.present(title: "Error", message: "Sorry, we couldn't find any route", preset: .error)
+                    success = false
+                    self.orderButton.layer.isHidden = true
+                    self.cancelOrderButton.layer.isHidden = true
+                    self.searchButton.isEnabled = true
+                }else{
+                    fromCoordinate = CLLocationCoordinate2D(latitude: lat!, longitude: lon!)
+                    self.showRouteOnMap(pickupCoordinate: fromCoordinate, destinationCoordinate: toCoordinate)
+                }
+                
                 fromCoordinate = CLLocationCoordinate2D(latitude: lat!, longitude: lon!)
                 
                 geocoder.geocodeAddressString(to) {
@@ -157,16 +294,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     let placemark = placemarks?.first
                     let latTo = placemark?.location?.coordinate.latitude
                     let lonTo = placemark?.location?.coordinate.longitude
-                    toCoordinate = CLLocationCoordinate2D(latitude: latTo!, longitude: lonTo!)
-                    self.showRouteOnMap(pickupCoordinate: fromCoordinate, destinationCoordinate: toCoordinate)
-                    //self.mapView(self.mapView, rendererFor: MKOverl)
+                    
+                    if latTo == nil || lonTo == nil{
+                        SPAlert.present(title: "Error", message: "Sorry, we couldn't find any route", preset: .error)
+                        success = false
+                        self.orderButton.layer.isHidden = true
+                        self.cancelOrderButton.layer.isHidden = true
+                        self.searchButton.isEnabled = true
+                    }else{
+                        toCoordinate = CLLocationCoordinate2D(latitude: latTo!, longitude: lonTo!)
+                        self.showRouteOnMap(pickupCoordinate: fromCoordinate, destinationCoordinate: toCoordinate)
+                    }
                 }
             }
         }
-        
-        
-        print(fromCoordinate)
-        print(toCoordinate)
+
+        return success
 
     }
     
@@ -192,6 +335,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         cancelOrderButton.layer.isHidden = true
         orderButton.layer.isHidden = true
         
+        //show alert
+        SPAlert.present(title: "Success", message: "", preset: .done)
+        
+        //send requests
+        
     }
     
     @IBAction func cancelOrderButtonClicked(_ sender: Any) {
@@ -199,8 +347,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         removeAllAnnotations()
         orderButton.layer.isHidden = true
         cancelOrderButton.layer.isHidden = true
+        searchButton.isEnabled = true
+        //remove overlays
+        let overlays = mapView.overlays
+        mapView.removeOverlays(overlays)
         
     }
+    
+    //HTTP stuff-------------------------------------------------
+    
     
     
     
