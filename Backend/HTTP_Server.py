@@ -121,13 +121,7 @@ def SortVehicles(final_destination, destination, vehicles):
 
 class requestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path[:6]=='/login':
-            self.send_response(200)
-            self.send_header('content-type', 'text/html')
-            self.end_headers()
-            #@TODO vehicle nach status filtern
-            self.wfile.write(json.dumps(filterFREEVehicles(getVehicles())).encode())
-        elif self.path[:6]=='/route':
+        if self.path[:6]=='/route':
             self.send_response(200)
             self.send_header('content-type', 'text/html')
             self.end_headers()
@@ -149,6 +143,17 @@ class requestHandler(BaseHTTPRequestHandler):
             self.end_headers()
         else:
             self.send_error(404,"Error! Invalid URL.")
+            
+    def do_POST(self):
+        if self.path[:6]=='/login':
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            print(post_data)
+            self.send_response(200)
+            self.send_header('content-type', 'text/html')
+            self.end_headers()
+            #@TODO vehicle nach status filtern
+            self.wfile.write(json.dumps(filterFREEVehicles(getVehicles())).encode())
 
 
 def main():
