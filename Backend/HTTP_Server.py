@@ -240,12 +240,13 @@ class requestHandler(BaseHTTPRequestHandler):
                 jobs.append(job_data)
                 potential_jobs.remove(job_data)
                 print(f'Successfully confirmed ride')
-                self.wfile.write(json.dumps({'duration': job_data['duration']}).encode())
                 self.send_response(200)
+                self.send_header('content-type', 'text/html')
+                self.end_headers()
+                self.wfile.write(json.dumps({'duration': job_data['duration']}).encode())
             else:
                 self.send_error(404,"Error! Internal job error.")
-            self.send_header('content-type', 'text/html')
-            self.end_headers()
+            
             #self.wfile.write() 
             #TODO: confirm to api
         
