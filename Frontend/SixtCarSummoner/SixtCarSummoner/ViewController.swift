@@ -14,43 +14,41 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     //instances
     @IBOutlet var mapView: MKMapView!
     
-    let manager = CLLocationManager()
+    let locationManager = CLLocationManager()
+    let regionInMeters: Double = 1000
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-
-    
-    override func viewDidAppear(_ animated: Bool) {
-        manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.delegate = self
-        manager.requestWhenInUseAuthorization()
-        manager.startUpdatingLocation()
+        checkLocationServices()
+        mapView.showsUserLocation = true
+        centerViewOnUserLocation()
+        
     }
     
-    //locationManager
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first{
-            manager.stopUpdatingLocation()
-            
-            render(location)
+    func setupLocationManager(){
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    }
+    
+    func centerViewOnUserLocation(){
+        if let location = locationManager.location?.coordinate{
+            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+            mapView.setRegion(region, animated: true)
         }
     }
     
-    func render(_ location: CLLocation){
+    func checkLocationServices(){
         
-        let coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.latitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-        
-        let region = MKCoordinateRegion(center: coordinate, span: span)
-        mapView.setRegion(region, animated: true)
-        let pin = MKPointAnnotation()
-        pin.coordinate = coordinate
-        mapView.addAnnotation(pin)
-        
+        if CLLocationManager.locationServicesEnabled(){
+            setupLocationManager()
+            locationManager.requestWhenInUseAuthorization()
+        }else{
+            //Show alert
+            UIAlertController.init(title: "Error", message: "You need to enable location services in your settings", preferredStyle: UIAlertController.Style.alert)
+        }
         
     }
     
+    
 
 }
-
