@@ -26,10 +26,19 @@ class requestHandler(BaseHTTPRequestHandler):
 
 def getVehicles():
     res = requests.get('https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles')
-    return res.content
+    return res.json()
+idx  = getVehicles()[0]["vehicleID"]
 
 def getVehicleWithId(id):
-    res = requests.get(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicle/:{id}')
+    res = requests.get(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}')
+    return res
+print(getVehicleWithId(idx))
+
+def updateCoordinatesOfVehicle(id,lat,lng):
+    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/:{id}/coordinates')
+
+def updateBatteryChargeOfVehicle(id,charge):
+    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/:{id}/{charge}')
 
 def main():
     server = HTTPServer(('', PORT), requestHandler)
@@ -38,7 +47,8 @@ def main():
 
 if __name__ == "__main__":
     #main()
-    print(getVehicles())
+    #print(getVehicles())
+    pass
 
 
 
