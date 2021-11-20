@@ -234,7 +234,7 @@ class requestHandler(BaseHTTPRequestHandler):
                 msg = 'No fitting car found'
                 self.wfile.write(msg.encode())
         
-        elif self.path[:9]=='/confirm':
+        elif self.path[:8]=='/confirm':
             job_data = getDictionaryByKeyFromList(potential_jobs, 'uid', data['uid'])
             if job_data:
                 jobs.append(job_data)
