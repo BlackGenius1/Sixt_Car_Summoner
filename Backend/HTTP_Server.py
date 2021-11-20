@@ -128,7 +128,11 @@ def getRouteDuration(start, destination):
     route = getRouteInfo(start, destination)
     print(f"start: {start},      destination {destination}")
     #print(route)
-    return route['rows'][0]['elements'][0]['duration']['value']
+    try:
+        ret = route['rows'][0]['elements'][0]['duration']['value']
+    except KeyError:
+        ret = 9999999999999999
+    return ret
 
 def getRouteDurationFromModifiedVehicle(modified_vehicle):
     """Return the duration of the modified vehicle. Mainly for sorting purposes"""
