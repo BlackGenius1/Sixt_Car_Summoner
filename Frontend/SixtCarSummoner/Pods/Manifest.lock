@@ -1,20 +1,24 @@
 PODS:
   - Hero (1.6.1)
   - SPAlert (2.1.4)
+  - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
   - Hero
   - SPAlert
+  - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   trunk:
     - Hero
     - SPAlert
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
   Hero: 215865ba3ae41dd9bb08cd6c60a645529c6fc94b
   SPAlert: 1a8afa1c6ac86a82ab5b2cfdf7f9a51e68cb6c0c
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 05abca1590a0c8e935414035b040c482adc3a263
+PODFILE CHECKSUM: 7d7e7b9c020e92b00bf9e826699acb43b0cbda90
 
 COCOAPODS: 1.11.2

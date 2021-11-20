@@ -8,6 +8,7 @@ target 'SixtCarSummoner' do
   # Pods for SixtCarSummoner
   pod 'Hero'
   pod 'SPAlert'
+  pod 'SwiftyJSON', '~> 4.0'
 
   target 'SixtCarSummonerTests' do
     inherit! :search_paths
