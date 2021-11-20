@@ -1,3 +1,4 @@
+import requests
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 PORT = 8000
@@ -22,7 +23,9 @@ class requestHandler(BaseHTTPRequestHandler):
         print(output)
         self.wfile.write(output.encode())
 
-
+def getVehicles():
+    res = requests.get('https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles')
+    return res.content
 
 def main():
     server = HTTPServer(('', PORT), requestHandler)
@@ -30,4 +33,6 @@ def main():
     server.serve_forever()
 
 if __name__ == "__main__":
-    main()
+    #main()
+    print(getVehicles())
+
