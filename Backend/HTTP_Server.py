@@ -26,11 +26,6 @@ google_maps_api_key = 'AIzaSyCYqNsvXY_BsymUGlLK2QFRuZvAKsR2YEg'
 jobs = {}
 
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 8748a06f856d8d68481965aa3c5b42f49e6cf5dd
 def getVehicles():
     res = requests.get('https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles')
     return res.json()
@@ -124,14 +119,6 @@ def SortVehicles(final_destination, destination, vehicles):
         vehicles = postfilterVehicles(final_destination, destination, vehicles)
     return vehicles
 
-<<<<<<< HEAD
-def getBestVehicle(final_destination, destination, vehicles):
-    sorted = SortVehicles(final_destination, destination, vehicles)
-    if sorted:
-        return sorted[0]
-    else:
-        return 'No fitting car found'
-=======
 class requestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path[:6]=='/login':
@@ -139,7 +126,7 @@ class requestHandler(BaseHTTPRequestHandler):
             self.send_header('content-type', 'text/html')
             self.end_headers()
             #@TODO vehicle nach status filtern
-            self.wfile.write(str(getVehicles()).encode())
+            self.wfile.write(json.dumps(filterFREEVehicles(getVehicles())).encode())
         elif self.path[:6]=='/route':
             self.send_response(200)
             self.send_header('content-type', 'text/html')
@@ -162,27 +149,7 @@ class requestHandler(BaseHTTPRequestHandler):
             self.end_headers()
         else:
             self.send_error(404,"Error! Invalid URL.")
->>>>>>> 8748a06f856d8d68481965aa3c5b42f49e6cf5dd
 
-class requestHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        if self.path[:6] == '/login':
-            self.send_response(200)
-            self.send_header('content-type', 'text/html')
-            self.end_headers()
-            self.wfile.write(json.dumps(list(filterFREEVehicles(getVehicles()))).encode())
-        #elif self.path[:6]('/route'):
-        #    pass
-        #elif self.path[:9]('/confirm'):
-        #    pass
-        #elif self.path[:7]('/pickup'):
-        #    pass
-        #elif self.path[:8]('/dropoff'):
-        #    pass
-        #elif self.path[:7]('/cancel'):
-        #    pass
-        else:
-            pass
 
 def main():
     server = HTTPServer(('', PORT), requestHandler)
