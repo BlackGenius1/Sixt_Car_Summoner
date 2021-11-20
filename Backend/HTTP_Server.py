@@ -160,6 +160,7 @@ def SortVehicles(final_destination, destination, vehicles):
 
 def getBestVehicle(final_destination, destination, vehicles):
     """Return most suited vehicle"""
+    print(f"get best Vehicle: final: {final_destination}, dest: {destination}, vehicles: {vehicles}")
     sorted = SortVehicles(final_destination, destination, vehicles)
     print(sorted)
     if sorted:
