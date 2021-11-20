@@ -1,0 +1,629 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B9E2376B274850C60021C0E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E2376A274850C60021C0E5 /* AppDelegate.swift */; };
+		B9E2376D274850C60021C0E5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E2376C274850C60021C0E5 /* SceneDelegate.swift */; };
+		B9E2376F274850C60021C0E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E2376E274850C60021C0E5 /* ViewController.swift */; };
+		B9E23772274850C60021C0E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9E23770274850C60021C0E5 /* Main.storyboard */; };
+		B9E23774274850C80021C0E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9E23773274850C80021C0E5 /* Assets.xcassets */; };
+		B9E23777274850C80021C0E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9E23775274850C80021C0E5 /* LaunchScreen.storyboard */; };
+		B9E23782274850C80021C0E5 /* SixtCarSummonerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E23781274850C80021C0E5 /* SixtCarSummonerTests.swift */; };
+		B9E2378C274850C90021C0E5 /* SixtCarSummonerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E2378B274850C90021C0E5 /* SixtCarSummonerUITests.swift */; };
+		B9E2378E274850C90021C0E5 /* SixtCarSummonerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E2378D274850C90021C0E5 /* SixtCarSummonerUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B9E2377E274850C80021C0E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B9E2375F274850C60021C0E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B9E23766274850C60021C0E5;
+			remoteInfo = SixtCarSummoner;
+		};
+		B9E23788274850C90021C0E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B9E2375F274850C60021C0E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B9E23766274850C60021C0E5;
+			remoteInfo = SixtCarSummoner;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B9E23767274850C60021C0E5 /* SixtCarSummoner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SixtCarSummoner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9E2376A274850C60021C0E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B9E2376C274850C60021C0E5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		B9E2376E274850C60021C0E5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B9E23771274850C60021C0E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B9E23773274850C80021C0E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B9E23776274850C80021C0E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B9E23778274850C80021C0E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B9E2377D274850C80021C0E5 /* SixtCarSummonerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SixtCarSummonerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9E23781274850C80021C0E5 /* SixtCarSummonerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SixtCarSummonerTests.swift; sourceTree = "<group>"; };
+		B9E23787274850C90021C0E5 /* SixtCarSummonerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SixtCarSummonerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9E2378B274850C90021C0E5 /* SixtCarSummonerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SixtCarSummonerUITests.swift; sourceTree = "<group>"; };
+		B9E2378D274850C90021C0E5 /* SixtCarSummonerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SixtCarSummonerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B9E23764274850C60021C0E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9E2377A274850C80021C0E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9E23784274850C90021C0E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B9E2375E274850C60021C0E5 = {
+			isa = PBXGroup;
+			children = (
+				B9E23769274850C60021C0E5 /* SixtCarSummoner */,
+				B9E23780274850C80021C0E5 /* SixtCarSummonerTests */,
+				B9E2378A274850C90021C0E5 /* SixtCarSummonerUITests */,
+				B9E23768274850C60021C0E5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B9E23768274850C60021C0E5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B9E23767274850C60021C0E5 /* SixtCarSummoner.app */,
+				B9E2377D274850C80021C0E5 /* SixtCarSummonerTests.xctest */,
+				B9E23787274850C90021C0E5 /* SixtCarSummonerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B9E23769274850C60021C0E5 /* SixtCarSummoner */ = {
+			isa = PBXGroup;
+			children = (
+				B9E2376A274850C60021C0E5 /* AppDelegate.swift */,
+				B9E2376C274850C60021C0E5 /* SceneDelegate.swift */,
+				B9E2376E274850C60021C0E5 /* ViewController.swift */,
+				B9E23770274850C60021C0E5 /* Main.storyboard */,
+				B9E23773274850C80021C0E5 /* Assets.xcassets */,
+				B9E23775274850C80021C0E5 /* LaunchScreen.storyboard */,
+				B9E23778274850C80021C0E5 /* Info.plist */,
+			);
+			path = SixtCarSummoner;
+			sourceTree = "<group>";
+		};
+		B9E23780274850C80021C0E5 /* SixtCarSummonerTests */ = {
+			isa = PBXGroup;
+			children = (
+				B9E23781274850C80021C0E5 /* SixtCarSummonerTests.swift */,
+			);
+			path = SixtCarSummonerTests;
+			sourceTree = "<group>";
+		};
+		B9E2378A274850C90021C0E5 /* SixtCarSummonerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B9E2378B274850C90021C0E5 /* SixtCarSummonerUITests.swift */,
+				B9E2378D274850C90021C0E5 /* SixtCarSummonerUITestsLaunchTests.swift */,
+			);
+			path = SixtCarSummonerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B9E23766274850C60021C0E5 /* SixtCarSummoner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B9E23791274850C90021C0E5 /* Build configuration list for PBXNativeTarget "SixtCarSummoner" */;
+			buildPhases = (
+				B9E23763274850C60021C0E5 /* Sources */,
+				B9E23764274850C60021C0E5 /* Frameworks */,
+				B9E23765274850C60021C0E5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SixtCarSummoner;
+			productName = SixtCarSummoner;
+			productReference = B9E23767274850C60021C0E5 /* SixtCarSummoner.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B9E2377C274850C80021C0E5 /* SixtCarSummonerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B9E23794274850C90021C0E5 /* Build configuration list for PBXNativeTarget "SixtCarSummonerTests" */;
+			buildPhases = (
+				B9E23779274850C80021C0E5 /* Sources */,
+				B9E2377A274850C80021C0E5 /* Frameworks */,
+				B9E2377B274850C80021C0E5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B9E2377F274850C80021C0E5 /* PBXTargetDependency */,
+			);
+			name = SixtCarSummonerTests;
+			productName = SixtCarSummonerTests;
+			productReference = B9E2377D274850C80021C0E5 /* SixtCarSummonerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B9E23786274850C90021C0E5 /* SixtCarSummonerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B9E23797274850C90021C0E5 /* Build configuration list for PBXNativeTarget "SixtCarSummonerUITests" */;
+			buildPhases = (
+				B9E23783274850C90021C0E5 /* Sources */,
+				B9E23784274850C90021C0E5 /* Frameworks */,
+				B9E23785274850C90021C0E5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B9E23789274850C90021C0E5 /* PBXTargetDependency */,
+			);
+			name = SixtCarSummonerUITests;
+			productName = SixtCarSummonerUITests;
+			productReference = B9E23787274850C90021C0E5 /* SixtCarSummonerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B9E2375F274850C60021C0E5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1310;
+				LastUpgradeCheck = 1310;
+				TargetAttributes = {
+					B9E23766274850C60021C0E5 = {
+						CreatedOnToolsVersion = 13.1;
+					};
+					B9E2377C274850C80021C0E5 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = B9E23766274850C60021C0E5;
+					};
+					B9E23786274850C90021C0E5 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = B9E23766274850C60021C0E5;
+					};
+				};
+			};
+			buildConfigurationList = B9E23762274850C60021C0E5 /* Build configuration list for PBXProject "SixtCarSummoner" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B9E2375E274850C60021C0E5;
+			productRefGroup = B9E23768274850C60021C0E5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B9E23766274850C60021C0E5 /* SixtCarSummoner */,
+				B9E2377C274850C80021C0E5 /* SixtCarSummonerTests */,
+				B9E23786274850C90021C0E5 /* SixtCarSummonerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B9E23765274850C60021C0E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9E23777274850C80021C0E5 /* LaunchScreen.storyboard in Resources */,
+				B9E23774274850C80021C0E5 /* Assets.xcassets in Resources */,
+				B9E23772274850C60021C0E5 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9E2377B274850C80021C0E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9E23785274850C90021C0E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B9E23763274850C60021C0E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9E2376F274850C60021C0E5 /* ViewController.swift in Sources */,
+				B9E2376B274850C60021C0E5 /* AppDelegate.swift in Sources */,
+				B9E2376D274850C60021C0E5 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9E23779274850C80021C0E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9E23782274850C80021C0E5 /* SixtCarSummonerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9E23783274850C90021C0E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9E2378C274850C90021C0E5 /* SixtCarSummonerUITests.swift in Sources */,
+				B9E2378E274850C90021C0E5 /* SixtCarSummonerUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B9E2377F274850C80021C0E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B9E23766274850C60021C0E5 /* SixtCarSummoner */;
+			targetProxy = B9E2377E274850C80021C0E5 /* PBXContainerItemProxy */;
+		};
+		B9E23789274850C90021C0E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B9E23766274850C60021C0E5 /* SixtCarSummoner */;
+			targetProxy = B9E23788274850C90021C0E5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B9E23770274850C60021C0E5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B9E23771274850C60021C0E5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B9E23775274850C80021C0E5 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B9E23776274850C80021C0E5 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B9E2378F274850C90021C0E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B9E23790274850C90021C0E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B9E23792274850C90021C0E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VHFFNQQF74;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SixtCarSummoner/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = julian.waluschyk.SixtCarSummoner;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B9E23793274850C90021C0E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VHFFNQQF74;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SixtCarSummoner/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = julian.waluschyk.SixtCarSummoner;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B9E23795274850C90021C0E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VHFFNQQF74;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = julian.waluschyk.SixtCarSummonerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SixtCarSummoner.app/SixtCarSummoner";
+			};
+			name = Debug;
+		};
+		B9E23796274850C90021C0E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VHFFNQQF74;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = julian.waluschyk.SixtCarSummonerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SixtCarSummoner.app/SixtCarSummoner";
+			};
+			name = Release;
+		};
+		B9E23798274850C90021C0E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VHFFNQQF74;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = julian.waluschyk.SixtCarSummonerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SixtCarSummoner;
+			};
+			name = Debug;
+		};
+		B9E23799274850C90021C0E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VHFFNQQF74;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = julian.waluschyk.SixtCarSummonerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SixtCarSummoner;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B9E23762274850C60021C0E5 /* Build configuration list for PBXProject "SixtCarSummoner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B9E2378F274850C90021C0E5 /* Debug */,
+				B9E23790274850C90021C0E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B9E23791274850C90021C0E5 /* Build configuration list for PBXNativeTarget "SixtCarSummoner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B9E23792274850C90021C0E5 /* Debug */,
+				B9E23793274850C90021C0E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B9E23794274850C90021C0E5 /* Build configuration list for PBXNativeTarget "SixtCarSummonerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B9E23795274850C90021C0E5 /* Debug */,
+				B9E23796274850C90021C0E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B9E23797274850C90021C0E5 /* Build configuration list for PBXNativeTarget "SixtCarSummonerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B9E23798274850C90021C0E5 /* Debug */,
+				B9E23799274850C90021C0E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B9E2375F274850C60021C0E5 /* Project object */;
+}
