@@ -258,6 +258,13 @@ class requestHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('content-type', 'text/html')
             self.end_headers()
+            uid = data['uid']
+            pot_job = getDictionaryByKeyFromList(potential_jobs, 'uid', uid)
+            if pot_job:
+                try:
+                    potential_jobs.remove(pot_job)
+                except:
+                    pass
             #self.wfile.write()
             #TODO: cancel job
 
