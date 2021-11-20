@@ -504,8 +504,108 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if isStart{
             startRideButton.setTitle("End Ride", for: .normal)
             timeView.layer.isHidden = true
+            
+            //server
+            //show alert
+            SPAlert.present(title: "Ride started", message: "Have a good ride", preset: .done)
+            
+            //send requests
+            let jsonObject: NSMutableDictionary = NSMutableDictionary()
+
+            jsonObject.setValue(userUID, forKey: "uid")
+
+            let jsonData: NSData
+
+            do {
+                jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions()) as NSData
+                
+                //post data
+                guard let url = URL(string: "http://85.214.129.142:8000/pickup") else {
+                    print("error")
+                    return
+                }
+                
+                var request = URLRequest(url: url)
+                
+                request.httpMethod = "POST"
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                
+                let httpBody = jsonData
+
+                request.httpBody = httpBody as Data
+                let jsonString = NSString(data: httpBody as Data, encoding: String.Encoding.utf8.rawValue)! as String
+                print(jsonString)
+                
+                let session = URLSession.shared
+                session.dataTask(with: request) { (data, response, error) in
+                    if error != nil {
+                        DispatchQueue.main.async {
+                            let alertView = SPAlertView(title: "Verbindung fehlgeschlagen!", message: "Überprüfe deine Internetverbindung und versuche es erneut.", preset: SPAlertPreset.error)
+                            alertView.present()
+                        }
+                        return
+                    }
+           
+                }.resume()
+                
+            } catch _ {
+                print ("JSON Failure")
+                print("error")
+            }
+            
         }else{
             startRideButton.layer.isHidden = true
+            
+            //endRide
+            //show alert
+            SPAlert.present(title: "Ride ended", message: "Thanks for choosing Sixt", preset: .done)
+            
+            //send requests
+            let jsonObject: NSMutableDictionary = NSMutableDictionary()
+
+            jsonObject.setValue(userUID, forKey: "uid")
+
+            let jsonData: NSData
+
+            do {
+                jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions()) as NSData
+                
+                //post data
+                guard let url = URL(string: "http://85.214.129.142:8000/dropoff") else {
+                    print("error")
+                    return
+                }
+                
+                var request = URLRequest(url: url)
+                
+                request.httpMethod = "POST"
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                
+                let httpBody = jsonData
+
+                request.httpBody = httpBody as Data
+                let jsonString = NSString(data: httpBody as Data, encoding: String.Encoding.utf8.rawValue)! as String
+                print(jsonString)
+                
+                let session = URLSession.shared
+                session.dataTask(with: request) { (data, response, error) in
+                    if error != nil {
+                        DispatchQueue.main.async {
+                            let alertView = SPAlertView(title: "Verbindung fehlgeschlagen!", message: "Überprüfe deine Internetverbindung und versuche es erneut.", preset: SPAlertPreset.error)
+                            alertView.present()
+                        }
+                        return
+                    }
+           
+                }.resume()
+                
+            } catch _ {
+                print ("JSON Failure")
+                print("error")
+            }
+            
+            //show search button
+            searchButton.layer.isHidden = false
         }
     }
     
