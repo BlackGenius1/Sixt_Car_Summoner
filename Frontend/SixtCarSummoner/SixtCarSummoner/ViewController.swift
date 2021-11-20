@@ -379,19 +379,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     
                     
                     do {
+                    
+                        self.carArray.removeAll()
+                        let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
+                        let lng = jsonObject.value(forKey: "lng") as! Double
+                        let lat = jsonObject.value(forKey: "lat") as! Double
+                        let charge = jsonObject.value(forKey: "charge") as! Int
+                        let car = Car(lat: String(lat), lon: String(lng), charge: String(charge))
+                        self.carArray.append(car)
                         
-                        let json = try JSON(data: data)
-                        print(json)
-
-                        
-                        for (index, object) in json {
-                            let lat = object["lat"].stringValue
-                            let lon = object["lng"].stringValue
-                            let charge = object["charge"].stringValue
-                            
-                            let car = Car(lat: lat, lon: lon, charge: charge)
-                            self.carArray.append(car)
-                        }
+            
                         
                         //add Cars
                         DispatchQueue.main.async {
@@ -400,6 +397,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 let carDestination = MKPointAnnotation()
                                 let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: Double(car.lat)!, longitude: Double(car.lon)!), addressDictionary: nil)
                                 let carAnnotation = MKPointAnnotation()
+                                carAnnotation.title = "Car"
                                 if let location = destinationPlacemark.location {
                                     carAnnotation.coordinate = location.coordinate
                                 }
@@ -492,50 +490,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     }
                     return
                 }
-                
-                                
-                if let data = data{
-                    let jsonString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
-                    print(jsonString)
-                    
-                    
-                    do {
-                        
-                        let json = try JSON(data: data)
-                        print(json)
-
-                        
-                        for (index, object) in json {
-                            let lat = object["lat"].stringValue
-                            let lon = object["lng"].stringValue
-                            let charge = object["charge"].stringValue
-                            
-                            let car = Car(lat: lat, lon: lon, charge: charge)
-                            self.carArray.append(car)
-                        }
-                        
-                        //add Cars
-                        DispatchQueue.main.async {
-                            var carAnnotations = [MKPointAnnotation]()
-                            for car in self.carArray{
-                                let carDestination = MKPointAnnotation()
-                                let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: Double(car.lat)!, longitude: Double(car.lon)!), addressDictionary: nil)
-                                let carAnnotation = MKPointAnnotation()
-                                if let location = destinationPlacemark.location {
-                                    carAnnotation.coordinate = location.coordinate
-                                }
-                                
-                                carAnnotations.append(carAnnotation)
-                                
-                            }
-                        self.mapView.showAnnotations(carAnnotations, animated: true )
-                    }
-                        
-                    } catch let error {
-                        print(error)
-                    }
-                }
-                
+       
             }.resume()
             
         } catch _ {
@@ -547,7 +502,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBAction func startRideButtonClicked(_ sender: Any) {
         if isStart{
-            startRideButton.titleLabel?.text = "End Ride"
+            startRideButton.setTitle("End Ride", for: .normal)
             timeView.layer.isHidden = true
         }else{
             startRideButton.layer.isHidden = true
@@ -570,8 +525,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let jsonObject: NSMutableDictionary = NSMutableDictionary()
 
         jsonObject.setValue(userUID, forKey: "uid")
-        jsonObject.setValue(locationManager.location?.coordinate.latitude, forKey: "lat")
-        jsonObject.setValue(locationManager.location?.coordinate.longitude, forKey: "lng")
 
         let jsonData: NSData
 
@@ -579,7 +532,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions()) as NSData
             
             //post data
-            guard let url = URL(string: "http://85.214.129.142:8000/login") else {
+            guard let url = URL(string: "http://85.214.129.142:8000/cancel") else {
                 print("error")
                 return
             }
@@ -605,54 +558,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     return
                 }
                 
-                                
-                if let data = data{
-                    let jsonString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
-                    print(jsonString)
-                    
-                    
-                    do {
-                        
-                        let json = try JSON(data: data)
-                        print(json)
-
-                        
-                        for (index, object) in json {
-                            let lat = object["lat"].stringValue
-                            let lon = object["lng"].stringValue
-                            let charge = object["charge"].stringValue
-                            
-                            let car = Car(lat: lat, lon: lon, charge: charge)
-                            self.carArray.append(car)
-                        }
-                        
-                        //add Cars
-                        DispatchQueue.main.async {
-                            var carAnnotations = [MKPointAnnotation]()
-                            for car in self.carArray{
-                                let carDestination = MKPointAnnotation()
-                                let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: Double(car.lat)!, longitude: Double(car.lon)!), addressDictionary: nil)
-                                let carAnnotation = MKPointAnnotation()
-                                carAnnotation.title = "Car"
-                                
-                                if let location = destinationPlacemark.location {
-                                    carAnnotation.coordinate = location.coordinate
-                                }
-                                
-                                carAnnotations.append(carAnnotation)
-                                
-                            }
-                        self.mapView.showAnnotations(carAnnotations, animated: true )
-                    }
-                        
-                    } catch let error {
-                        print(error)
-                    }
-                }
-                
             }.resume()
             
-        } catch _ {
+        }catch _ {
             print ("JSON Failure")
             print("error")
         }
