@@ -184,9 +184,9 @@ def getBestVehicle(final_destination, destination, vehicles):
     else:
         return 
 
-def createJob(start, destination, uid, vehicleID):
+def createJob(start, destination, uid, vehicleID, duration):############
     """Return job dictionary"""
-    job = {'lat1': start[0], 'lng1': start[1], 'lat2': destination[0], 'lng2': destination[1], 'uid': uid, 'vehicleID': vehicleID}
+    job = {'lat1': start[0], 'lng1': start[1], 'lat2': destination[0], 'lng2': destination[1], 'uid': uid, 'vehicleID': vehicleID, 'duration': duration}############
     return job
 
 class requestHandler(BaseHTTPRequestHandler):
@@ -227,7 +227,7 @@ class requestHandler(BaseHTTPRequestHandler):
             #print(f'out= {out}')
             if out:
                 print(type(data), data)
-                potential_jobs.append(createJob((data['lat1'], data['lng1']),(data['lat2'], data['lng2']), data['uid'], out['vehicleID']))
+                potential_jobs.append(createJob((data['lat1'], data['lng1']),(data['lat2'], data['lng2']), data['uid'], out['vehicleID'], out['duration']))#############
                 print(f'Successful created Route for best vehicle')
                 self.wfile.write(json.dumps(out).encode())
             else:
@@ -240,7 +240,7 @@ class requestHandler(BaseHTTPRequestHandler):
                 jobs.append(job_data)
                 potential_jobs.remove(job_data)
                 print(f'Successfully confirmed ride')
-                #self.wfile.write(json.dumps({'duration': job_data['duration']}).encode())
+                self.wfile.write(json.dumps({'duration': job_data['duration']}).encode())
                 self.send_response(200)
             else:
                 self.send_error(404,"Error! Internal job error.")
