@@ -213,7 +213,7 @@ class requestHandler(BaseHTTPRequestHandler):
             print(f'out= {out}')
             if out:
                 #potential_jobs.append(createJob((data['lat1'], data['lng1']),(data['lat2'], data['lng2']), data['uid'], data['vehicleID']))
-                self.wfile.write(out.encode())
+                self.wfile.write(json.dumps(out).encode())
             else:
                 msg = 'No fitting car found'
                 self.wfile.write(msg.encode())
