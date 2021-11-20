@@ -33,6 +33,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 1000
     var isSatellite = false
+    var isStart = true
     
     //jsontags
     let userUID = "1111111111111111"
@@ -450,6 +451,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         searchButton.layer.isHidden = true
         cancelOrderButton.layer.isHidden = true
         orderButton.layer.isHidden = true
+        startRideButton.isHidden = false
         
         //show alert
         SPAlert.present(title: "Success", message: "", preset: .done)
@@ -542,6 +544,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
         
     }
+    
+    @IBAction func startRideButtonClicked(_ sender: Any) {
+        if isStart{
+            startRideButton.titleLabel?.text = "End Ride"
+        }else{
+            startRideButton.layer.isHidden = true
+        }
+    }
+    
     
     @IBAction func cancelOrderButtonClicked(_ sender: Any) {
         
