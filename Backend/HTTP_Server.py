@@ -119,13 +119,17 @@ def SortVehicles(final_destination, destination, vehicles):
         vehicles = postfilterVehicles(final_destination, destination, vehicles)
     return vehicles
 
+def getBestVehicle(final_destination, destination, vehicles):
+    sorted = SortVehicles(final_destination, destination, vehicles)
+    if sorted:
+        return sorted[0]
+    else:
+        return 
+
 class requestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path[:6]=='/route':
-            self.send_response(200)
-            self.send_header('content-type', 'text/html')
-            self.end_headers()
-        elif self.path[:9]=='/confirm':
+        
+        if self.path[:9]=='/confirm':
             self.send_response(200)
             self.send_header('content-type', 'text/html')
             self.end_headers()
@@ -145,6 +149,7 @@ class requestHandler(BaseHTTPRequestHandler):
             self.send_error(404,"Error! Invalid URL.")
             
     def do_POST(self):
+
         if self.path[:6]=='/login':
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
@@ -152,8 +157,22 @@ class requestHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('content-type', 'text/html')
             self.end_headers()
-            #@TODO vehicle nach status filtern
             self.wfile.write(json.dumps(filterFREEVehicles(getVehicles())).encode())
+
+        elif self.path[:6]=='/route':
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            print(post_data)
+            self.send_response(200)
+            self.send_header('content-type', 'text/html')
+            self.end_headers()
+            data = dict(post_data)
+            out = getBestVehicle((data['lat2'], data['lng2']), (data['lat1'], data['lat2'], getVehicles()))
+            if out:
+                self.wfile.write(out.encode())
+            else:
+                msg = 'No fitting car found'
+                self.wfile.write(msg.encode())
 
 
 def main():
@@ -162,6 +181,7 @@ def main():
     server.serve_forever()
 
 if __name__ == "__main__":
+    print(len(getVehicles()))
     main()
     #print(dictionaryFromJson(getVehicles()))
     #vehicles = getVehicles()
