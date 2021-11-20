@@ -17,34 +17,15 @@ PORT = 8000
 KILOMETERS_PER_PERCENT = 4
 
 GEOFENCE_SIZE_SHOW = .3
-GEOFENCE_SIZE = .02
+GEOFENCE_SIZE_START = .01
+GEOFENCE_SIZE_MAX = .03
+GEOFENCE_STEP = .01
 
-users = {'uid': '1111111111111111'}
+users = [{'uid': '1111111111111111'}]
 google_maps_api_key = 'AIzaSyCYqNsvXY_BsymUGlLK2QFRuZvAKsR2YEg'
 
 
-class requestHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        if self.path[:6]('/login'):
-            pass
-        elif self.path[:6]('/route'):
-            pass
-        elif self.path[:9]('/confirm'):
-            pass
-        elif self.path[:7]('/pickup'):
-            pass
-        elif self.path[:8]('/dropoff'):
-            pass
-        elif self.path[:7]('/cancel'):
-            pass
-        else:
-            pass
-        self.send_response(200)
-        self.send_header('content-type', 'text/html')
-        self.end_headers()
 
-        out = ""
-        self.wfile.write(output.encode())
 
 def getVehicles():
     res = requests.get('https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles')
@@ -69,8 +50,8 @@ def getRouteLength(start, final_destination):
     route = getRouteInfo(start, final_destination)
     return route['rows'][0]['elements'][0]['distance']['value'] /1000
 
-def isInGeofence(destination, vehicle):
-    return abs(destination[0] - vehicle['lat']) < GEOFENCE_SIZE and abs(destination[1] - vehicle['lng']) < GEOFENCE_SIZE
+def isInGeofence(destination, vehicle, geofence):
+    return abs(destination[0] - vehicle['lat']) < geofence and abs(destination[1] - vehicle['lng']) < geofence
 
 def isEnoughCharge(final_destination, destination, vehicle):
     start = (vehicle['lat'], vehicle['lng'])
@@ -78,9 +59,12 @@ def isEnoughCharge(final_destination, destination, vehicle):
     needed_charge = distance/KILOMETERS_PER_PERCENT * 1.1
     return vehicle['charge'] >= needed_charge
 
-def prefilterVehicles(destination, vehicles):
+def filterFREEVehicles(vehicles):
+    return list(filter(lambda x: x['status'] == 'FREE', vehicles))
+
+def prefilterVehicles(destination, vehicles, geofence):
     vehicles = list(filter(lambda x: x['status'] == 'FREE', vehicles))
-    vehicles = list(filter(lambda x: isInGeofence(destination, x), vehicles))
+    vehicles = list(filter(lambda x: isInGeofence(destination, x, geofence), vehicles))
     return vehicles
 
 def postfilterVehicles(final_destination, destination, vehicles):
@@ -88,7 +72,6 @@ def postfilterVehicles(final_destination, destination, vehicles):
     return vehicles
 
     
-
 def getRouteDuration(start, destination):
     """Return the duration a vehicle is expected to need to get from its position to the required destination"""
     route = getRouteInfo(start, destination)
@@ -107,14 +90,46 @@ def appendDuration(destination, vehicles):
     return vehicles
 
 def SortVehicles(final_destination, destination, vehicles):
-    """Returns the modified vehicle list sorted by the expected traveling duration."""
-    vehicles = prefilterVehicles(destination, vehicles)
+    """Returns the modified vehicle list sorted by the expected traveling duration and dynamically apply a search area."""
+    geofence = GEOFENCE_SIZE_START
+    vehicles = prefilterVehicles(destination, vehicles, geofence)
     vehicles_duration = appendDuration(destination, vehicles)
     vehicles_duration.sort(reverse=False, key = getRouteDurationFromModifiedVehicle)
     vehicles = postfilterVehicles(final_destination, destination, vehicles)
+    while vehicles == [] and geofence < GEOFENCE_SIZE_MAX:
+        geofence += GEOFENCE_STEP
+        vehicles = prefilterVehicles(destination, vehicles, geofence)
+        vehicles_duration = appendDuration(destination, vehicles)
+        vehicles_duration.sort(reverse=False, key = getRouteDurationFromModifiedVehicle)
+        vehicles = postfilterVehicles(final_destination, destination, vehicles)
     return vehicles
 
+def getBestVehicle(final_destination, destination, vehicles):
+    sorted = SortVehicles(final_destination, destination, vehicles)
+    if sorted:
+        return sorted[0]
+    else:
+        return 'No fitting car found'
 
+class requestHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        if self.path[:6] == '/login':
+            self.send_response(200)
+            self.send_header('content-type', 'text/html')
+            self.end_headers()
+            self.wfile.write(json.dumps(list(filterFREEVehicles(getVehicles()))).encode())
+        #elif self.path[:6]('/route'):
+        #    pass
+        #elif self.path[:9]('/confirm'):
+        #    pass
+        #elif self.path[:7]('/pickup'):
+        #    pass
+        #elif self.path[:8]('/dropoff'):
+        #    pass
+        #elif self.path[:7]('/cancel'):
+        #    pass
+        else:
+            pass
 
 def main():
     server = HTTPServer(('', PORT), requestHandler)
@@ -122,7 +137,7 @@ def main():
     server.serve_forever()
 
 if __name__ == "__main__":
-    #main()
+    main()
     #print(dictionaryFromJson(getVehicles()))
-    vehicles = getVehicles()
-    print(SortVehicles((48.156, 11.57),(48.144634,11.565320), vehicles))
+    #vehicles = getVehicles()
+    #print(SortVehicles((48.156, 11.57),(48.144634,11.565320), vehicles))
