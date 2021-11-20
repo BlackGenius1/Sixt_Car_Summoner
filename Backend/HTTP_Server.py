@@ -202,7 +202,10 @@ class requestHandler(BaseHTTPRequestHandler):
         """Handle POST requests"""
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
-        data = json.loads(post_data)
+        try:
+            data = json.loads(post_data)
+        except:
+            print(f'invalid Data: {post_data}')
 
         if self.path[:6]=='/login':
             self.send_response(200)
