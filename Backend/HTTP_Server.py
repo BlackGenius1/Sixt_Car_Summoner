@@ -95,6 +95,7 @@ def postfilterVehicles(final_destination, destination, vehicles):
 def getRouteDuration(start, destination):
     """Return the duration a vehicle is expected to need to get from its position to the required destination"""
     route = getRouteInfo(start, destination)
+    print(f"start: {start},      destination {destination}")
     #print(route)
     return route['rows'][0]['elements'][0]['duration']['value']
 
