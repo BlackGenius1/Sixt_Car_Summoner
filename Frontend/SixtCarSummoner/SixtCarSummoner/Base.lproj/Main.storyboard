@@ -135,6 +135,17 @@
                                     <constraint firstItem="Wde-Fq-TyV" firstAttribute="leading" secondItem="cjA-mo-8VB" secondAttribute="leading" constant="20" id="zuP-CV-EjJ"/>
                                 </constraints>
                             </view>
+                            <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smU-YN-idM">
+                                <rect key="frame" x="100" y="777" width="214" height="65"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="rGO-Xc-jmw"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Start Ride">
+                                    <fontDescription key="titleFontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="24"/>
+                                    <color key="baseBackgroundColor" systemColor="systemRedColor"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -144,6 +155,8 @@
                             <constraint firstItem="3Hb-0g-bTw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="86T-ff-4aC"/>
                             <constraint firstItem="rFb-P7-zrO" firstAttribute="leading" secondItem="cjA-mo-8VB" secondAttribute="trailing" constant="70" id="A21-5B-cC5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Hie-oi-sdQ" secondAttribute="bottom" constant="20" id="AV9-NT-H0j"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="smU-YN-idM" secondAttribute="trailing" constant="100" id="AvZ-UQ-9a0"/>
+                            <constraint firstItem="smU-YN-idM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="Cb7-j8-4HT"/>
                             <constraint firstAttribute="bottom" secondItem="qKY-1O-ajF" secondAttribute="bottom" id="EBb-M5-gBq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="o8a-jn-8KK" secondAttribute="trailing" constant="16" id="G6y-b9-wQR"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vDk-3M-wAa" secondAttribute="bottom" constant="20" id="GxM-BA-Ush"/>
@@ -151,11 +164,14 @@
                             <constraint firstItem="cjA-mo-8VB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="KAs-Wi-sTk"/>
                             <constraint firstItem="Hie-oi-sdQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="Oei-9U-oBS"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rFb-P7-zrO" secondAttribute="trailing" constant="16" id="PhU-R7-0o4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="smU-YN-idM" secondAttribute="bottom" constant="20" id="RoQ-fw-mPA"/>
                             <constraint firstItem="c5L-iU-HKw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="STF-Wo-0FB"/>
+                            <constraint firstItem="smU-YN-idM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WEx-rm-vaB"/>
                             <constraint firstItem="rFb-P7-zrO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="aIV-R1-j2W"/>
                             <constraint firstItem="c5L-iU-HKw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="mtC-p0-HJv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qKY-1O-ajF" secondAttribute="trailing" id="onf-V9-dz9"/>
                             <constraint firstItem="qKY-1O-ajF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qPx-yL-yUC"/>
+                            <constraint firstItem="Hie-oi-sdQ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="bottom" constant="-119" id="uSO-Iy-DVE"/>
                             <constraint firstItem="qKY-1O-ajF" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="uir-0x-1Ge"/>
                             <constraint firstItem="cjA-mo-8VB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="v3t-Fr-kwP"/>
                             <constraint firstItem="o8a-jn-8KK" firstAttribute="top" secondItem="rFb-P7-zrO" secondAttribute="bottom" constant="15" id="xK4-Py-Xxw"/>
@@ -169,6 +185,7 @@
                         <outlet property="orderButton" destination="Hie-oi-sdQ" id="ACN-uC-6t5"/>
                         <outlet property="searchButton" destination="vDk-3M-wAa" id="SZ6-NO-4QJ"/>
                         <outlet property="settingsButton" destination="3Hb-0g-bTw" id="p2h-kK-qdD"/>
+                        <outlet property="startRideButton" destination="smU-YN-idM" id="SDP-02-JC6"/>
                         <outlet property="timeDescriptionLable" destination="7Po-Wb-4E3" id="P3x-RW-JTA"/>
                         <outlet property="timeLable" destination="Wde-Fq-TyV" id="Vc0-xR-XtD"/>
                         <outlet property="timeView" destination="cjA-mo-8VB" id="I8Y-mg-jYI"/>

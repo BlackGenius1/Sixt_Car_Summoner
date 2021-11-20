@@ -25,6 +25,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var timeView: UIView!
     @IBOutlet weak var timeLable: UILabel!
     @IBOutlet weak var timeDescriptionLable: UILabel!
+    @IBOutlet weak var startRideButton: UIButton!
+    
     
     //TODO coordinate errors abfangen
     
@@ -60,6 +62,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         mapTypeButton.layer.cornerRadius = 20.0
         cancelOrderButton.layer.cornerRadius = 20.0
         timeView.layer.cornerRadius = 25.0
+        startRideButton.layer.cornerRadius = 32.0
         
     }
     
