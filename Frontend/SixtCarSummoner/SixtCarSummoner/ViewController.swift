@@ -92,14 +92,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             
             var request = URLRequest(url: url)
             
-            request.httpMethod = "POST"
+            request.httpMethod = "GET"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             
             let httpBody = jsonData
 
-            request.httpBody = httpBody as Data
-            let jsonString = NSString(data: httpBody as Data, encoding: String.Encoding.utf8.rawValue)! as String
-            print(jsonString)
+            //request.httpBody = httpBody as Data
+            //let jsonString = NSString(data: httpBody as Data, encoding: String.Encoding.utf8.rawValue)! as String
+           // print(jsonString)
             
             let session = URLSession.shared
             session.dataTask(with: request) { (data, response, error) in
@@ -116,6 +116,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     print(jsonString)
                     do {
                         let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
+                
                         if let content = jsonObject[""] as? [[String:String]] {
                             
                             if !content.isEmpty{
