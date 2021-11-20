@@ -6,6 +6,8 @@ PORT = 8000
 
 tasklist = ['t1', 't2', 't3']
 
+headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+
 
 class requestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -30,15 +32,25 @@ def getVehicles():
 idx  = getVehicles()[0]["vehicleID"]
 
 def getVehicleWithId(id):
+    getVehicles
     res = requests.get(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}')
     return res
 print(getVehicleWithId(idx))
 
 def updateCoordinatesOfVehicle(id,lat,lng):
-    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}/coordinates')
+    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}/coordinates', json={"lat": lat, "lng": lng},headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
+
+    print("Status code: ", res.status_code)
+    print("Printing Entire Post Request")
+    print(res.json())
 
 def updateBatteryChargeOfVehicle(id,charge):
-    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}/{charge}')
+    if charge < 0:
+        print("Error! Charge is too low.")
+    if charge > 100:
+        print("Error! Charge is too high.")
+    else:
+        res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}/charge', json={"charge": charge},headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
 
 def main():
     server = HTTPServer(('', PORT), requestHandler)
@@ -47,11 +59,8 @@ def main():
 
 if __name__ == "__main__":
     #main()
-    #print(getVehicles())
+    print(getVehicles()[2])
+    updateCoordinatesOfVehicle(getVehicles()[2]["vehicleID"],3,4)
+    updateBatteryChargeOfVehicle(getVehicles()[2]["vehicleID"],100)
+    print(getVehicles()[2])
     pass
-
-
-
-def dictionaryFromJson(data):
-    data_dict = json.load(data)
-    return data_dict
