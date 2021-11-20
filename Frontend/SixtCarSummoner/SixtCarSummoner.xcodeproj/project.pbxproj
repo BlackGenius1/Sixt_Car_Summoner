@@ -10,6 +10,8 @@
 		06F0460E2951370CBAFC1D6C /* Pods_SixtCarSummonerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 201981D4DCA0254FD464134B /* Pods_SixtCarSummonerTests.framework */; };
 		152CD7E22D4A3262BF004A97 /* Pods_SixtCarSummoner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B2F562F5D06829DF39D7A0 /* Pods_SixtCarSummoner.framework */; };
 		AB2C52C2EABE395AB12F7DB7 /* Pods_SixtCarSummoner_SixtCarSummonerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4896E2C482BCF5C15B5DB2C8 /* Pods_SixtCarSummoner_SixtCarSummonerUITests.framework */; };
+		B99A6CE827488785000C5703 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99A6CE727488785000C5703 /* SearchViewController.swift */; };
+		B99A6CEB274896D3000C5703 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99A6CEA274896D3000C5703 /* SearchCell.swift */; };
 		B9E2376B274850C60021C0E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E2376A274850C60021C0E5 /* AppDelegate.swift */; };
 		B9E2376D274850C60021C0E5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E2376C274850C60021C0E5 /* SceneDelegate.swift */; };
 		B9E2376F274850C60021C0E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E2376E274850C60021C0E5 /* ViewController.swift */; };
@@ -48,6 +50,8 @@
 		83B2F562F5D06829DF39D7A0 /* Pods_SixtCarSummoner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SixtCarSummoner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9184F2FD1786A3F2BD4C22E6 /* Pods-SixtCarSummoner-SixtCarSummonerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SixtCarSummoner-SixtCarSummonerUITests.release.xcconfig"; path = "Target Support Files/Pods-SixtCarSummoner-SixtCarSummonerUITests/Pods-SixtCarSummoner-SixtCarSummonerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9D701574206892510579903B /* Pods-SixtCarSummonerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SixtCarSummonerTests.debug.xcconfig"; path = "Target Support Files/Pods-SixtCarSummonerTests/Pods-SixtCarSummonerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B99A6CE727488785000C5703 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		B99A6CEA274896D3000C5703 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		B9E23767274850C60021C0E5 /* SixtCarSummoner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SixtCarSummoner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9E2376A274850C60021C0E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9E2376C274850C60021C0E5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +105,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B99A6CE9274896AD000C5703 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B99A6CEA274896D3000C5703 /* SearchCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		B9E2375E274850C60021C0E5 = {
 			isa = PBXGroup;
 			children = (
@@ -126,9 +138,11 @@
 		B9E23769274850C60021C0E5 /* SixtCarSummoner */ = {
 			isa = PBXGroup;
 			children = (
+				B99A6CE9274896AD000C5703 /* Cells */,
 				B9E2376A274850C60021C0E5 /* AppDelegate.swift */,
 				B9E2376C274850C60021C0E5 /* SceneDelegate.swift */,
 				B9E2376E274850C60021C0E5 /* ViewController.swift */,
+				B99A6CE727488785000C5703 /* SearchViewController.swift */,
 				B9E23770274850C60021C0E5 /* Main.storyboard */,
 				B9E23773274850C80021C0E5 /* Assets.xcassets */,
 				B9E23775274850C80021C0E5 /* LaunchScreen.storyboard */,
@@ -164,7 +178,6 @@
 				9D701574206892510579903B /* Pods-SixtCarSummonerTests.debug.xcconfig */,
 				13B8BB395FEC8DBF861F11C0 /* Pods-SixtCarSummonerTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -408,7 +421,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9E2376F274850C60021C0E5 /* ViewController.swift in Sources */,
+				B99A6CEB274896D3000C5703 /* SearchCell.swift in Sources */,
 				B9E2376B274850C60021C0E5 /* AppDelegate.swift in Sources */,
+				B99A6CE827488785000C5703 /* SearchViewController.swift in Sources */,
 				B9E2376D274850C60021C0E5 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
