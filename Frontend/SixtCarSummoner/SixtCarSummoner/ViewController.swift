@@ -616,27 +616,33 @@ func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordin
         return renderer
     }
     
+    
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "AnnotationView")
-            
-            if annotationView == nil{
-                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "AnnotationView")
-            }
-            
-            if let title = annotation.title, title == "Car"{
-                let image = UIImage(named: "carAnnotation")
+        
+        
+        
+        let reuseIdentifier = "pin"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
 
-                let size = CGSize(width: 50, height: 50)
-                UIGraphicsBeginImageContext(size)
-                //image!.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-                
-                //annotationView?.image = image//resizedImage
+            if annotationView == nil {
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+                annotationView?.canShowCallout = true
+            } else {
+                annotationView?.annotation = annotation
             }
-            
+
+            let customPointAnnotation = annotation as! CustomPointAnnotation
+            annotationView?.image = UIImage(named: "carAnnotation")
+
             return annotationView
-            
-        }
+        
+    }
     
     
+    
+}
+
+class CustomPointAnnotation: MKPointAnnotation {
+var pinCustomImageName:String!
 }
