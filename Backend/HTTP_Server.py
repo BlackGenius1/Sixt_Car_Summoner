@@ -87,7 +87,8 @@ def getRouteInfo(start, destination):
     """Get route information from the googlemaps api"""
     #vehicle_coordinates = (vehicle['lat'], vehicle['lng']) #Maybe switch lat and lng
     map_client = googlemaps.Client(google_maps_api_key)
-    route = map_client.distance_matrix(start, destination, mode='driving')#["rows"][0]["elements"][0]["distance"]["value"]
+    route = map_client.distance_matrix(start, destination, mode='driving')
+    print(f'Route: {route}')#["rows"][0]["elements"][0]["distance"]["value"]
     return route
 
 def getRouteLength(start, final_destination):
@@ -141,8 +142,10 @@ def appendDuration(destination, vehicles):
 
 def SortVehicles(final_destination, destination, vehicles):
     """Returns the modified vehicle list sorted by the expected traveling duration and dynamically apply a search area."""
+    ##### Fix!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     geofence = GEOFENCE_SIZE_START
-    vehicles = prefilterVehicles(destination, vehicles, geofence)
+    vehicles = filterFREEVehicles(vehicles)
+    #vehicles = prefilterVehicles(destination, vehicles, geofence)
     vehicles_duration = appendDuration(destination, vehicles)
     vehicles_duration.sort(reverse=False, key = getRouteDurationFromModifiedVehicle)
     vehicles = postfilterVehicles(final_destination, destination, vehicles)
@@ -199,7 +202,7 @@ class requestHandler(BaseHTTPRequestHandler):
             out = getBestVehicle((data['lat2'], data['lng2']), (data['lat1'], data['lng1']), getVehicles())
             print(f'out= {out}')
             if out:
-                potential_jobs.append(createJob((data['lat1'], data['lng1']),(data['lat2'], data['lng2']), data['uid'], data['vehicleID']))
+                #potential_jobs.append(createJob((data['lat1'], data['lng1']),(data['lat2'], data['lng2']), data['uid'], data['vehicleID']))
                 self.wfile.write(out.encode())
             else:
                 msg = 'No fitting car found'

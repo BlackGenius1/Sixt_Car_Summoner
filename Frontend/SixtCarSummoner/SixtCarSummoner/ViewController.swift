@@ -143,6 +143,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: Double(car.lat)!, longitude: Double(car.lon)!), addressDictionary: nil)
                                 let carAnnotation = MKPointAnnotation()
                                 carAnnotation.title = "Car"
+                                
                                 if let location = destinationPlacemark.location {
                                     carAnnotation.coordinate = location.coordinate
                                 }
@@ -322,6 +323,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func requestCar(lat1: Double, lng1: Double, lat2: Double, lng2: Double){
+        
+        //clear cars
+        clearCars()
+        
+        
         let jsonObject: NSMutableDictionary = NSMutableDictionary()
         
         jsonObject.setValue(lat1, forKey: "lat1")
@@ -416,6 +422,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func removeAllAnnotations() {
         let annotations = mapView.annotations.filter {
             $0 !== self.mapView.userLocation
+        }
+        mapView.removeAnnotations(annotations)
+    }
+    
+    func clearCars() {
+        let annotations = mapView.annotations.filter {
+            $0.title == "Car"
         }
         mapView.removeAnnotations(annotations)
     }
@@ -539,6 +552,97 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let overlays = mapView.overlays
         mapView.removeOverlays(overlays)
         
+        
+        //show cars
+        let jsonObject: NSMutableDictionary = NSMutableDictionary()
+
+        jsonObject.setValue(userUID, forKey: "uid")
+        jsonObject.setValue(locationManager.location?.coordinate.latitude, forKey: "lat")
+        jsonObject.setValue(locationManager.location?.coordinate.longitude, forKey: "lng")
+
+        let jsonData: NSData
+
+        do {
+            jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions()) as NSData
+            
+            //post data
+            guard let url = URL(string: "http://85.214.129.142:8000/login") else {
+                print("error")
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            let httpBody = jsonData
+
+            request.httpBody = httpBody as Data
+            let jsonString = NSString(data: httpBody as Data, encoding: String.Encoding.utf8.rawValue)! as String
+            print(jsonString)
+            
+            let session = URLSession.shared
+            session.dataTask(with: request) { (data, response, error) in
+                if error != nil {
+                    DispatchQueue.main.async {
+                        let alertView = SPAlertView(title: "Verbindung fehlgeschlagen!", message: "Überprüfe deine Internetverbindung und versuche es erneut.", preset: SPAlertPreset.error)
+                        alertView.present()
+                    }
+                    return
+                }
+                
+                                
+                if let data = data{
+                    let jsonString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
+                    print(jsonString)
+                    
+                    
+                    do {
+                        
+                        let json = try JSON(data: data)
+                        print(json)
+
+                        
+                        for (index, object) in json {
+                            let lat = object["lat"].stringValue
+                            let lon = object["lng"].stringValue
+                            let charge = object["charge"].stringValue
+                            
+                            let car = Car(lat: lat, lon: lon, charge: charge)
+                            self.carArray.append(car)
+                        }
+                        
+                        //add Cars
+                        DispatchQueue.main.async {
+                            var carAnnotations = [MKPointAnnotation]()
+                            for car in self.carArray{
+                                let carDestination = MKPointAnnotation()
+                                let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: Double(car.lat)!, longitude: Double(car.lon)!), addressDictionary: nil)
+                                let carAnnotation = MKPointAnnotation()
+                                carAnnotation.title = "Car"
+                                
+                                if let location = destinationPlacemark.location {
+                                    carAnnotation.coordinate = location.coordinate
+                                }
+                                
+                                carAnnotations.append(carAnnotation)
+                                
+                            }
+                        self.mapView.showAnnotations(carAnnotations, animated: true )
+                    }
+                        
+                    } catch let error {
+                        print(error)
+                    }
+                }
+                
+            }.resume()
+            
+        } catch _ {
+            print ("JSON Failure")
+            print("error")
+        }
     }
     
     //HTTP stuff-------------------------------------------------
@@ -622,8 +726,11 @@ func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordin
         if annotationView == nil{
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "AnnotationView")
         }
-        
-        if let title = annotation.title, title == "Car"{
+            
+        if annotation is MKUserLocation {
+            return nil
+        }
+        if annotation.title == "Car"{
             let image = UIImage(named: "CarAnnotation")
 
             let size = CGSize(width: 30, height: 40)
@@ -632,7 +739,26 @@ func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordin
             let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
             
             annotationView?.image = resizedImage
+        }else{
+            let reuseID = "pin"
+            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseID) as? MKPinAnnotationView
+            if(pinView == nil) {
+                pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
+                pinView!.canShowCallout = true
+                pinView!.animatesDrop = true
+            }
+            return pinView
         }
+        
+        
+        //let reuseID = "pin"
+        //var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseID) as? MKPinAnnotationView
+        //if(pinView == nil) {
+        //    pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
+         //   pinView!.canShowCallout = true
+         //   pinView!.animatesDrop = true
+        //}
+       // return pinView
         
         return annotationView
         
