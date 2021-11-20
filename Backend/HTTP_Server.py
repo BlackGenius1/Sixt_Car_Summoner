@@ -33,6 +33,7 @@ def getVehicles():
 
 def getVehicleWithId(id):
     res = requests.get(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicle/:{id}')
+    return res.json()
 
 def updateCoordinatesOfVehicle(id,lat,lng):
     res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}/coordinates', json={"lat": lat, "lng": lng},headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
@@ -47,8 +48,38 @@ def updateBatteryChargeOfVehicle(id,charge):
     if charge > 100:
         print("Error! Charge is too high.")
     else:
-        res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}/charge', json={"charge": charge},headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
+        res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}/charge', 
+        json={"charge": charge},headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
 
+
+
+
+def getBookings():
+    res = requests.get('https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/bookings')
+    return res.json()
+
+def getBookingWithId(id):
+    res = requests.get(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/bookings/{id}')
+    return res.json()
+
+def cancelBookingById(id):
+    res = requests.delete(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/bookings/{id}')
+
+def createBooking(pickupLat,pickupLng,destinationLat,destinationLng):
+    
+    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/bookings', json={
+        "pickupLat": pickupLat,
+	    "pickupLng": pickupLng,
+        "destinationLat": destinationLat,
+	    "destinationLng": destinationLng},
+        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
+
+def assignVehicleToBooking(bookingId,vehicleId):
+    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/bookings({bookingId}/assignVehicle/{vehicleId}')
+
+    print("Status code: ", res.status_code)
+    print("Printing Entire Post Request")
+    print(res.json())
 
 """Sort the vehicles using the googlemaps api"""
 
@@ -95,6 +126,7 @@ def postfilterVehicles(final_destination, destination, vehicles):
 def getRouteDuration(start, destination):
     """Return the duration a vehicle is expected to need to get from its position to the required destination"""
     route = getRouteInfo(start, destination)
+    print(f"start: {start},      destination {destination}")
     #print(route)
     return route['rows'][0]['elements'][0]['duration']['value']
 
@@ -118,18 +150,17 @@ def SortVehicles(final_destination, destination, vehicles):
     vehicles_duration = appendDuration(destination, vehicles)
     vehicles_duration.sort(reverse=False, key = getRouteDurationFromModifiedVehicle)
     vehicles = postfilterVehicles(final_destination, destination, vehicles)
-    while (not vehicles) and geofence < GEOFENCE_SIZE_MAX:
+    while vehicles == [] and geofence < GEOFENCE_SIZE_MAX:
         geofence += GEOFENCE_STEP
-        print(f"geofence size = {geofence}")
         vehicles = prefilterVehicles(destination, vehicles, geofence)
         vehicles_duration = appendDuration(destination, vehicles)
         vehicles_duration.sort(reverse=False, key = getRouteDurationFromModifiedVehicle)
         vehicles = postfilterVehicles(final_destination, destination, vehicles)
-    print(f"Sorted vehicles: {vehicles}")
     return vehicles
 
 def getBestVehicle(final_destination, destination, vehicles):
     """Return most suited vehicle"""
+    print(f"get best Vehicle: final: {final_destination}, dest: {destination}, vehicles: {vehicles}")
     sorted = SortVehicles(final_destination, destination, vehicles)
     print(sorted)
     if sorted:
