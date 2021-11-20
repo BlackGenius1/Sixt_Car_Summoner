@@ -2,6 +2,15 @@ import json
 import requests
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
+"""
+    /login for Log in
+    /route for getting nearest car
+    /confirm for job confirmation
+    /pickup for successful pick up
+    /dropoff for successfu drop of
+    /cancel for job cancellation
+"""
+
 PORT = 8000
 
 tasklist = ['t1', 't2', 't3']
@@ -27,18 +36,22 @@ class requestHandler(BaseHTTPRequestHandler):
 def getVehicles():
     res = requests.get('https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles')
     return res.json()
-idx  = getVehicles()[0]["vehicleID"]
 
 def getVehicleWithId(id):
-    res = requests.get(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}')
-    return res
-print(getVehicleWithId(idx))
+    res = requests.get(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicle/:{id}')
+    
+def geoCarDrivingDifference(destination, vehicle):
+    lon_1, lat_1, lon_2, lat_2 = vehicle[0], vehicle[1], destination[0], destination[1]
+    r = requests.get(f"http://router.project-osrm.org/route/v1/car/{lon_1},{lat_1};{lon_2},{lat_2}?overview=false""")
+    route = r.json()
+    print(route)
+    return route["routes"]
 
-def updateCoordinatesOfVehicle(id,lat,lng):
-    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}/coordinates')
+def filterVehicles(destination, vehicles):
+    vehicles = filter(lambda x: x['status'] == 'Free', vehicles)
+    vehicles.sort(reverse=False, key = geoCarDrivingDifference(destination))
 
-def updateBatteryChargeOfVehicle(id,charge):
-    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}/{charge}')
+
 
 def main():
     server = HTTPServer(('', PORT), requestHandler)
@@ -47,11 +60,5 @@ def main():
 
 if __name__ == "__main__":
     #main()
-    #print(getVehicles())
-    pass
-
-
-
-def dictionaryFromJson(data):
-    data_dict = json.load(data)
-    return data_dict
+    #print(dictionaryFromJson(getVehicles()))
+    geoCarDrivingDifference((48.144634,11.565120),(48.149759,11.578488))
