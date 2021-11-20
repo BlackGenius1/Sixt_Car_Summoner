@@ -1,5 +1,14 @@
-import requests
+import json
 from http.server import HTTPServer, BaseHTTPRequestHandler
+"""
+/login for Log in
+/route for getting nearest car
+/confirm for job confirmation
+/pickup for successful pick up
+/dropoff for successfu drop of
+/cancel for job cancellation
+"""
+
 
 PORT = 8080
 
@@ -11,7 +20,6 @@ class requestHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('content-type', 'text/html')
         self.end_headers()
-        #self.wfile.write(self.path[1:].encode())
 
         output = ''
         output+= '<html><body>'
@@ -23,9 +31,7 @@ class requestHandler(BaseHTTPRequestHandler):
         print(output)
         self.wfile.write(output.encode())
 
-def getVehicles():
-    res = requests.get('https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles')
-    return res.content
+
 
 def main():
     server = HTTPServer(('', PORT), requestHandler)
@@ -33,6 +39,8 @@ def main():
     server.serve_forever()
 
 if __name__ == "__main__":
-    #main()
-    print(getVehicles())
+    main()
 
+def dictionaryFromJson(data):
+    data_dict = json.load(data)
+    return data_dict
