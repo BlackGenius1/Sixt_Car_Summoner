@@ -143,6 +143,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: Double(car.lat)!, longitude: Double(car.lon)!), addressDictionary: nil)
                                 let carAnnotation = MKPointAnnotation()
                                 carAnnotation.title = "Car"
+                                
                                 if let location = destinationPlacemark.location {
                                     carAnnotation.coordinate = location.coordinate
                                 }
@@ -622,8 +623,11 @@ func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordin
         if annotationView == nil{
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "AnnotationView")
         }
-        
-        if let title = annotation.title, title == "Car"{
+            
+        if annotation is MKUserLocation {
+            return nil
+        }
+        if annotation.title == "Car"{
             let image = UIImage(named: "CarAnnotation")
 
             let size = CGSize(width: 30, height: 40)
@@ -632,7 +636,26 @@ func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordin
             let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
             
             annotationView?.image = resizedImage
+        }else{
+            let reuseID = "pin"
+            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseID) as? MKPinAnnotationView
+            if(pinView == nil) {
+                pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
+                pinView!.canShowCallout = true
+                pinView!.animatesDrop = true
+            }
+            return pinView
         }
+        
+        
+        //let reuseID = "pin"
+        //var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseID) as? MKPinAnnotationView
+        //if(pinView == nil) {
+        //    pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
+         //   pinView!.canShowCallout = true
+         //   pinView!.animatesDrop = true
+        //}
+       // return pinView
         
         return annotationView
         
