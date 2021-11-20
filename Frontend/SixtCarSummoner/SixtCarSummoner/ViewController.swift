@@ -469,7 +469,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 print("error")
                 return
             }
-            
+    
             var request = URLRequest(url: url)
             
             request.httpMethod = "POST"
