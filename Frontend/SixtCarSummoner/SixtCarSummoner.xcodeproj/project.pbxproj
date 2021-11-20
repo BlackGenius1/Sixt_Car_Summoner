@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06F0460E2951370CBAFC1D6C /* Pods_SixtCarSummonerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 201981D4DCA0254FD464134B /* Pods_SixtCarSummonerTests.framework */; };
+		152CD7E22D4A3262BF004A97 /* Pods_SixtCarSummoner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B2F562F5D06829DF39D7A0 /* Pods_SixtCarSummoner.framework */; };
+		AB2C52C2EABE395AB12F7DB7 /* Pods_SixtCarSummoner_SixtCarSummonerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4896E2C482BCF5C15B5DB2C8 /* Pods_SixtCarSummoner_SixtCarSummonerUITests.framework */; };
 		B9E2376B274850C60021C0E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E2376A274850C60021C0E5 /* AppDelegate.swift */; };
 		B9E2376D274850C60021C0E5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E2376C274850C60021C0E5 /* SceneDelegate.swift */; };
 		B9E2376F274850C60021C0E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E2376E274850C60021C0E5 /* ViewController.swift */; };
@@ -36,6 +39,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E77C91FC89FE5F0BD4C9B47 /* Pods-SixtCarSummoner-SixtCarSummonerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SixtCarSummoner-SixtCarSummonerUITests.debug.xcconfig"; path = "Target Support Files/Pods-SixtCarSummoner-SixtCarSummonerUITests/Pods-SixtCarSummoner-SixtCarSummonerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		13B8BB395FEC8DBF861F11C0 /* Pods-SixtCarSummonerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SixtCarSummonerTests.release.xcconfig"; path = "Target Support Files/Pods-SixtCarSummonerTests/Pods-SixtCarSummonerTests.release.xcconfig"; sourceTree = "<group>"; };
+		201981D4DCA0254FD464134B /* Pods_SixtCarSummonerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SixtCarSummonerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		33203BEA26429695F210E7AC /* Pods-SixtCarSummoner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SixtCarSummoner.release.xcconfig"; path = "Target Support Files/Pods-SixtCarSummoner/Pods-SixtCarSummoner.release.xcconfig"; sourceTree = "<group>"; };
+		4896E2C482BCF5C15B5DB2C8 /* Pods_SixtCarSummoner_SixtCarSummonerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SixtCarSummoner_SixtCarSummonerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		698268CD3EF7F04BF8B02140 /* Pods-SixtCarSummoner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SixtCarSummoner.debug.xcconfig"; path = "Target Support Files/Pods-SixtCarSummoner/Pods-SixtCarSummoner.debug.xcconfig"; sourceTree = "<group>"; };
+		83B2F562F5D06829DF39D7A0 /* Pods_SixtCarSummoner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SixtCarSummoner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9184F2FD1786A3F2BD4C22E6 /* Pods-SixtCarSummoner-SixtCarSummonerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SixtCarSummoner-SixtCarSummonerUITests.release.xcconfig"; path = "Target Support Files/Pods-SixtCarSummoner-SixtCarSummonerUITests/Pods-SixtCarSummoner-SixtCarSummonerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		9D701574206892510579903B /* Pods-SixtCarSummonerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SixtCarSummonerTests.debug.xcconfig"; path = "Target Support Files/Pods-SixtCarSummonerTests/Pods-SixtCarSummonerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B9E23767274850C60021C0E5 /* SixtCarSummoner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SixtCarSummoner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9E2376A274850C60021C0E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9E2376C274850C60021C0E5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				152CD7E22D4A3262BF004A97 /* Pods_SixtCarSummoner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06F0460E2951370CBAFC1D6C /* Pods_SixtCarSummonerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +84,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB2C52C2EABE395AB12F7DB7 /* Pods_SixtCarSummoner_SixtCarSummonerUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		319DAA86249278B05C051804 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				83B2F562F5D06829DF39D7A0 /* Pods_SixtCarSummoner.framework */,
+				4896E2C482BCF5C15B5DB2C8 /* Pods_SixtCarSummoner_SixtCarSummonerUITests.framework */,
+				201981D4DCA0254FD464134B /* Pods_SixtCarSummonerTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B9E2375E274850C60021C0E5 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +108,8 @@
 				B9E23780274850C80021C0E5 /* SixtCarSummonerTests */,
 				B9E2378A274850C90021C0E5 /* SixtCarSummonerUITests */,
 				B9E23768274850C60021C0E5 /* Products */,
+				D0E81CBC6357D58D10F768CC /* Pods */,
+				319DAA86249278B05C051804 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,6 +154,20 @@
 			path = SixtCarSummonerUITests;
 			sourceTree = "<group>";
 		};
+		D0E81CBC6357D58D10F768CC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				698268CD3EF7F04BF8B02140 /* Pods-SixtCarSummoner.debug.xcconfig */,
+				33203BEA26429695F210E7AC /* Pods-SixtCarSummoner.release.xcconfig */,
+				0E77C91FC89FE5F0BD4C9B47 /* Pods-SixtCarSummoner-SixtCarSummonerUITests.debug.xcconfig */,
+				9184F2FD1786A3F2BD4C22E6 /* Pods-SixtCarSummoner-SixtCarSummonerUITests.release.xcconfig */,
+				9D701574206892510579903B /* Pods-SixtCarSummonerTests.debug.xcconfig */,
+				13B8BB395FEC8DBF861F11C0 /* Pods-SixtCarSummonerTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -134,9 +175,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B9E23791274850C90021C0E5 /* Build configuration list for PBXNativeTarget "SixtCarSummoner" */;
 			buildPhases = (
+				9D52DF4F8F2CB0543DB7BAAE /* [CP] Check Pods Manifest.lock */,
 				B9E23763274850C60021C0E5 /* Sources */,
 				B9E23764274850C60021C0E5 /* Frameworks */,
 				B9E23765274850C60021C0E5 /* Resources */,
+				38F5E596CD37203223BDAAF1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -151,6 +194,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B9E23794274850C90021C0E5 /* Build configuration list for PBXNativeTarget "SixtCarSummonerTests" */;
 			buildPhases = (
+				34EB95938E82B7A168E449E7 /* [CP] Check Pods Manifest.lock */,
 				B9E23779274850C80021C0E5 /* Sources */,
 				B9E2377A274850C80021C0E5 /* Frameworks */,
 				B9E2377B274850C80021C0E5 /* Resources */,
@@ -169,9 +213,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B9E23797274850C90021C0E5 /* Build configuration list for PBXNativeTarget "SixtCarSummonerUITests" */;
 			buildPhases = (
+				1B715FBAC2D21205D464C53B /* [CP] Check Pods Manifest.lock */,
 				B9E23783274850C90021C0E5 /* Sources */,
 				B9E23784274850C90021C0E5 /* Frameworks */,
 				B9E23785274850C90021C0E5 /* Resources */,
+				351BAE5B715AEB4C761FF8C7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -252,6 +298,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1B715FBAC2D21205D464C53B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SixtCarSummoner-SixtCarSummonerUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		34EB95938E82B7A168E449E7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SixtCarSummonerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		351BAE5B715AEB4C761FF8C7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SixtCarSummoner-SixtCarSummonerUITests/Pods-SixtCarSummoner-SixtCarSummonerUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SixtCarSummoner-SixtCarSummonerUITests/Pods-SixtCarSummoner-SixtCarSummonerUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SixtCarSummoner-SixtCarSummonerUITests/Pods-SixtCarSummoner-SixtCarSummonerUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		38F5E596CD37203223BDAAF1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SixtCarSummoner/Pods-SixtCarSummoner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SixtCarSummoner/Pods-SixtCarSummoner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SixtCarSummoner/Pods-SixtCarSummoner-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D52DF4F8F2CB0543DB7BAAE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SixtCarSummoner-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B9E23763274850C60021C0E5 /* Sources */ = {
@@ -434,6 +583,7 @@
 		};
 		B9E23792274850C90021C0E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 698268CD3EF7F04BF8B02140 /* Pods-SixtCarSummoner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -462,6 +612,7 @@
 		};
 		B9E23793274850C90021C0E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 33203BEA26429695F210E7AC /* Pods-SixtCarSummoner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -490,6 +641,7 @@
 		};
 		B9E23795274850C90021C0E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9D701574206892510579903B /* Pods-SixtCarSummonerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -515,6 +667,7 @@
 		};
 		B9E23796274850C90021C0E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 13B8BB395FEC8DBF861F11C0 /* Pods-SixtCarSummonerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -540,6 +693,7 @@
 		};
 		B9E23798274850C90021C0E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E77C91FC89FE5F0BD4C9B47 /* Pods-SixtCarSummoner-SixtCarSummonerUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -563,6 +717,7 @@
 		};
 		B9E23799274850C90021C0E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9184F2FD1786A3F2BD4C22E6 /* Pods-SixtCarSummoner-SixtCarSummonerUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

@@ -19,11 +19,24 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qKY-1O-ajF">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </mapView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDk-3M-wAa">
+                                <rect key="frame" x="309" y="777" width="65" height="65"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="65" id="Uf1-Oh-gWt"/>
+                                    <constraint firstAttribute="height" constant="65" id="z79-kW-Czi"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="magnifyingglass" catalog="system" title="">
+                                    <color key="baseBackgroundColor" systemColor="systemRedColor"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vDk-3M-wAa" secondAttribute="trailing" constant="40" id="02k-LN-FuV"/>
                             <constraint firstAttribute="bottom" secondItem="qKY-1O-ajF" secondAttribute="bottom" id="EBb-M5-gBq"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vDk-3M-wAa" secondAttribute="bottom" constant="20" id="GxM-BA-Ush"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qKY-1O-ajF" secondAttribute="trailing" id="onf-V9-dz9"/>
                             <constraint firstItem="qKY-1O-ajF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qPx-yL-yUC"/>
                             <constraint firstItem="qKY-1O-ajF" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="uir-0x-1Ge"/>
@@ -31,6 +44,7 @@
                     </view>
                     <connections>
                         <outlet property="mapView" destination="qKY-1O-ajF" id="F07-fv-DWK"/>
+                        <outlet property="searchButton" destination="vDk-3M-wAa" id="JhV-1M-lxg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -39,8 +53,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
