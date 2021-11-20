@@ -205,7 +205,7 @@ class requestHandler(BaseHTTPRequestHandler):
         try:
             data = json.loads(post_data)
         except:
-            pass
+            print(f'invalid Data: {post_data}')
 
         if self.path[:6]=='/login':
             self.send_response(200)
