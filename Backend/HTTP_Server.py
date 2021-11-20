@@ -156,7 +156,8 @@ class requestHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('content-type', 'text/html')
             self.end_headers()
-            self.wfile.write(json.dumps(prefilterVehicles(getVehicles()), .5).encode())
+            vehicles = getVehicles()
+            self.wfile.write(json.dumps(prefilterVehicles((data['lat'], data['lng']), vehicles,.5)).encode())
 
         elif self.path[:6]=='/route':
             self.send_response(200)
