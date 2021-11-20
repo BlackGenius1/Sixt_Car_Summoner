@@ -548,6 +548,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func startRideButtonClicked(_ sender: Any) {
         if isStart{
             startRideButton.titleLabel?.text = "End Ride"
+            timeView.layer.isHidden = true
         }else{
             startRideButton.layer.isHidden = true
         }
