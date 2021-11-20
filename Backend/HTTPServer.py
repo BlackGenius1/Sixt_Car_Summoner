@@ -1,14 +1,6 @@
 import json
 import requests
 from http.server import HTTPServer, BaseHTTPRequestHandler
-"""
-/login for Log in
-/route for getting nearest car
-/confirm for job confirmation
-/pickup for successful pick up
-/dropoff for successfu drop of
-/cancel for job cancellation
-"""
 
 PORT = 8000
 
