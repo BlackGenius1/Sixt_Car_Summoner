@@ -66,7 +66,7 @@ def getRouteLength(start, final_destination):
 
 def isInGeofence(destination, vehicle, geofence):
     """Retrurn true if the vehicle is inside of a geofence"""
-    return abs(destination[0] - vehicle['lat']) < geofence and abs(destination[1] - vehicle['lng']) < geofence
+    return (abs(destination[0] - vehicle['lat']) < geofence and abs(destination[1] - vehicle['lng']) < geofence)
 
 def isEnoughCharge(final_destination, destination, vehicle):
     """Return Trrue if the vehicle has enough Battery left to make the ride"""
@@ -157,7 +157,8 @@ class requestHandler(BaseHTTPRequestHandler):
             self.send_header('content-type', 'text/html')
             self.end_headers()
             vehicles = getVehicles()
-            self.wfile.write(json.dumps(prefilterVehicles((data['lat'], data['lng']), vehicles,.5)).encode())
+            self.wfile.write(json.dumps(vehicles.encode()))
+            #self.wfile.write(json.dumps(prefilterVehicles((data['lat'], data['lng']), vehicles,.5)).encode())
 
         elif self.path[:6]=='/route':
             self.send_response(200)
@@ -165,6 +166,7 @@ class requestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             print(data)
             out = getBestVehicle((data['lat2'], data['lng2']), (data['lat1'], data['lng1']), getVehicles())
+            print(f'out= {out}')
             if out:
                 potential_jobs.append(createJob((data['lat1'], data['lng1']),(data['lat2'], data['lng2']), data['uid'], data['vehicleID']))
                 self.wfile.write(out.encode())
