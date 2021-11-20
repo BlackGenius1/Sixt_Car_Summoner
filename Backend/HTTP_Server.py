@@ -81,6 +81,15 @@ def assignVehicleToBooking(bookingId,vehicleId):
     print("Printing Entire Post Request")
     print(res.json())
 
+def getDictionaryByKeyFromList(list, key, value):
+    for entry in list:
+        try:
+            entry[key] == value
+            return entry
+        except:
+            continue
+    return 
+
 """Sort the vehicles using the googlemaps api"""
 
 def getRouteInfo(start, destination):
@@ -88,7 +97,7 @@ def getRouteInfo(start, destination):
     #vehicle_coordinates = (vehicle['lat'], vehicle['lng']) #Maybe switch lat and lng
     map_client = googlemaps.Client(google_maps_api_key)
     route = map_client.distance_matrix(start, destination, mode='driving')
-    print(f'Route: {route}')#["rows"][0]["elements"][0]["distance"]["value"]
+    #print(f'Route: {route}')#["rows"][0]["elements"][0]["distance"]["value"]
     return route
 
 def getRouteLength(start, final_destination):
@@ -130,7 +139,7 @@ def postfilterVehicles(final_destination, destination, vehicles):
 def getRouteDuration(start, destination):
     """Return the duration a vehicle is expected to need to get from its position to the required destination"""
     route = getRouteInfo(start, destination)
-    print(f"start: {start},      destination {destination}")
+    #print(f"start: {start},      destination {destination}")
     #print(route)
     try:
         ret = route['rows'][0]['elements'][0]['duration']['value']
@@ -151,10 +160,9 @@ def appendDuration(destination, vehicles):
 
 def SortVehicles(final_destination, destination, vehicles):
     """Returns the modified vehicle list sorted by the expected traveling duration and dynamically apply a search area."""
-    ##### Fix!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     geofence = GEOFENCE_SIZE_START
     vehicles = filterFREEVehicles(vehicles)
-    #vehicles = prefilterVehicles(destination, vehicles, geofence)
+    vehicles = prefilterVehicles(destination, vehicles, geofence)
     vehicles_duration = appendDuration(destination, vehicles)
     vehicles_duration.sort(reverse=False, key = getRouteDurationFromModifiedVehicle)
     vehicles = postfilterVehicles(final_destination, destination, vehicles)
@@ -168,9 +176,9 @@ def SortVehicles(final_destination, destination, vehicles):
 
 def getBestVehicle(final_destination, destination, vehicles):
     """Return most suited vehicle"""
-    print(f"get best Vehicle: final: {final_destination}, dest: {destination}, vehicles: {vehicles}")
+    #print(f"get best Vehicle: final: {final_destination}, dest: {destination}, vehicles: {vehicles}")
     sorted = SortVehicles(final_destination, destination, vehicles)
-    print(sorted)
+    #print(sorted)
     if sorted:
         return sorted[0]
     else:
@@ -208,25 +216,27 @@ class requestHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('content-type', 'text/html')
             self.end_headers()
-            print(data)
+            #print(data)
             out = getBestVehicle((data['lat2'], data['lng2']), (data['lat1'], data['lng1']), getVehicles())
-            print(f'out= {out}')
+            #print(f'out= {out}')
             if out:
-                #potential_jobs.append(createJob((data['lat1'], data['lng1']),(data['lat2'], data['lng2']), data['uid'], data['vehicleID']))
+                print(type(data), data)
+                potential_jobs.append(createJob((data['lat1'], data['lng1']),(data['lat2'], data['lng2']), data['uid'], data['vehicleID']))
                 self.wfile.write(json.dumps(out).encode())
             else:
                 msg = 'No fitting car found'
                 self.wfile.write(msg.encode())
         
         elif self.path[:9]=='/confirm':
-            self.send_response(200)
+            job_data = getDictionaryByKeyFromList(potential_jobs, 'uid', data['uid'])
+            if job_data:
+                jobs.append(job_data)
+                potential_jobs.remove(job_data)
+                self.send_response(200)
+            else:
+                self.send_error(404,"Error! Internal job error.")
             self.send_header('content-type', 'text/html')
             self.end_headers()
-            if potential_jobs.__contains__(data):  # data in job format
-                jobs.append(data)
-                potential_jobs.remove(data)
-            else:
-                jobs.append(data)
             #self.wfile.write() 
             #TODO: confirm to api
         
