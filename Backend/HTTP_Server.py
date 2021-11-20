@@ -94,7 +94,11 @@ def getRouteInfo(start, destination):
 def getRouteLength(start, final_destination):
     """Return the length of a given route"""
     route = getRouteInfo(start, final_destination)
-    return route['rows'][0]['elements'][0]['distance']['value'] /1000
+    try:
+        ret = route['rows'][0]['elements'][0]['distance']['value'] /1000
+    except KeyError:
+        ret = 9999999999999999
+    return ret
 
 def isInGeofence(destination, vehicle, geofence):
     """Retrurn true if the vehicle is inside of a geofence"""
