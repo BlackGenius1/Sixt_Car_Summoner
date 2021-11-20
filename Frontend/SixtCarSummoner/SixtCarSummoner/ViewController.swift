@@ -618,4 +618,40 @@ func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordin
     
     
     
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        // Don't want to show a custom image if the annotation is the user's location.
+        guard !(annotation is MKUserLocation) else {
+            return nil
+        }
+
+        // Better to make this class property
+        let annotationIdentifier = "AnnotationIdentifier"
+
+        var annotationView: MKAnnotationView?
+        if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) {
+            annotationView = dequeuedAnnotationView
+            annotationView?.annotation = annotation
+        }
+        else {
+            let av = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+            av.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            annotationView = av
+        }
+
+            // Configure your annotation view here
+            if let title = annotation.title, title == "Car"{
+                let image = UIImage(named: "carAnnotation")
+
+                let size = CGSize(width: 50, height: 50)
+                UIGraphicsBeginImageContext(size)
+                //image!.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+                
+                //annotationView?.image = image//resizedImage
+            }
+        
+
+        return annotationView
+    }
+    
 }
