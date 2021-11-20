@@ -210,6 +210,7 @@ class requestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             vehicles = getVehicles()
             #self.wfile.write(json.dumps(vehicles).encode())
+            print(f'Successful login')
             self.wfile.write(json.dumps(prefilterVehicles((data['lat'], data['lng']), vehicles,1)).encode())
 
         elif self.path[:6]=='/route':
@@ -221,7 +222,8 @@ class requestHandler(BaseHTTPRequestHandler):
             #print(f'out= {out}')
             if out:
                 print(type(data), data)
-                potential_jobs.append(createJob((data['lat1'], data['lng1']),(data['lat2'], data['lng2']), data['uid'], data['vehicleID']))
+                potential_jobs.append(createJob((data['lat1'], data['lng1']),(data['lat2'], data['lng2']), data['uid'], out['vehicleID']))
+                print(f'Successful created Route for best vehicle')
                 self.wfile.write(json.dumps(out).encode())
             else:
                 msg = 'No fitting car found'
@@ -232,6 +234,7 @@ class requestHandler(BaseHTTPRequestHandler):
             if job_data:
                 jobs.append(job_data)
                 potential_jobs.remove(job_data)
+                print(f'Successfully confirmed ride')
                 self.send_response(200)
             else:
                 self.send_error(404,"Error! Internal job error.")
@@ -243,6 +246,7 @@ class requestHandler(BaseHTTPRequestHandler):
         elif self.path[:7]=='/pickup':
             self.send_response(200)
             self.send_header('content-type', 'text/html')
+            print(f'Successful pickup')
             self.end_headers()
             #self.wfile.write()
             #TODO: confirm pickup
@@ -250,6 +254,7 @@ class requestHandler(BaseHTTPRequestHandler):
         elif self.path[:8]=='/dropoff':
             self.send_response(200)
             self.send_header('content-type', 'text/html')
+            print(f'Successful dropoff')
             self.end_headers()
             #self.wfile.write()
             #TODO: confirm dropoff/end job
@@ -263,7 +268,9 @@ class requestHandler(BaseHTTPRequestHandler):
             if pot_job:
                 try:
                     potential_jobs.remove(pot_job)
+                    print(f'Successful cancellation')
                 except:
+                    print(f'Error at cancellation!')
                     pass
             #self.wfile.write()
             #TODO: cancel job
