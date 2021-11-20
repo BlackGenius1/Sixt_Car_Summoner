@@ -142,6 +142,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 let carDestination = MKPointAnnotation()
                                 let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: Double(car.lat)!, longitude: Double(car.lon)!), addressDictionary: nil)
                                 let carAnnotation = MKPointAnnotation()
+                                carAnnotation.title = "Car"
                                 if let location = destinationPlacemark.location {
                                     carAnnotation.coordinate = location.coordinate
                                 }
@@ -621,6 +622,20 @@ func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordin
         if annotationView == nil{
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "AnnotationView")
         }
+        
+        if let title = annotation.title, title == "Car"{
+            let image = UIImage(named: "carAnnotation")
+
+            let size = CGSize(width: 50, height: 50)
+            UIGraphicsBeginImageContext(size)
+            image!.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+            
+            annotationView?.image = resizedImage
+        }
+        
+        return annotationView
+        
     }
     
 }
