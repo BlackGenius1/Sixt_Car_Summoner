@@ -18,8 +18,8 @@ KILOMETERS_PER_PERCENT = 5
 
 GEOFENCE_SIZE_SHOW = .3
 GEOFENCE_SIZE_START = .01
-GEOFENCE_SIZE_MAX = .19
-GEOFENCE_STEP = .02
+GEOFENCE_SIZE_MAX = 1.5
+GEOFENCE_STEP = .1
 
 users = [{'uid': '1111111111111111'}]
 google_maps_api_key = 'AIzaSyCYqNsvXY_BsymUGlLK2QFRuZvAKsR2YEg'
@@ -158,7 +158,7 @@ class requestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             vehicles = getVehicles()
             #self.wfile.write(json.dumps(vehicles).encode())
-            self.wfile.write(json.dumps(prefilterVehicles((data['lat'], data['lng']), vehicles,.5)).encode())
+            self.wfile.write(json.dumps(prefilterVehicles((data['lat'], data['lng']), vehicles,1)).encode())
 
         elif self.path[:6]=='/route':
             self.send_response(200)
