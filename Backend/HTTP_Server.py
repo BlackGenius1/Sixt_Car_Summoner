@@ -184,9 +184,9 @@ def getBestVehicle(final_destination, destination, vehicles):
     else:
         return 
 
-def createJob(start, destination, uid, vehicleID):
+def createJob(start, destination, uid, vehicleID, duration):
     """Return job dictionary"""
-    job = {'lat1': start[0], 'lng1': start[1], 'lat2': destination[0], 'lng2': destination[1], 'uid': uid, 'vehicleID': vehicleID}
+    job = {'lat1': start[0], 'lng1': start[1], 'lat2': destination[0], 'lng2': destination[1], 'uid': uid, 'vehicleID': vehicleID, 'duration': duration}
     return job
 
 class requestHandler(BaseHTTPRequestHandler):
