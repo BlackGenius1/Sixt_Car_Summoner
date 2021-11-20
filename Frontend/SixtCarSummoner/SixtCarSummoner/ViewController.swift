@@ -455,8 +455,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let jsonObject: NSMutableDictionary = NSMutableDictionary()
 
         jsonObject.setValue(userUID, forKey: "uid")
-        jsonObject.setValue(locationManager.location?.coordinate.latitude, forKey: "lat")
-        jsonObject.setValue(locationManager.location?.coordinate.longitude, forKey: "lng")
 
         let jsonData: NSData
 
@@ -464,7 +462,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions()) as NSData
             
             //post data
-            guard let url = URL(string: "http://85.214.129.142:8000/login") else {
+            guard let url = URL(string: "http://85.214.129.142:8000/confirm") else {
                 print("error")
                 return
             }
