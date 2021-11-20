@@ -49,6 +49,8 @@ class SearchViewController: UIViewController{
         //go to map
         let dateS:[String: String] = ["from": from, "to": destination]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "CALCULATEROUTE"), object: nil, userInfo: dateS)
+
+        
         self.dismiss(animated: true)
     }
     

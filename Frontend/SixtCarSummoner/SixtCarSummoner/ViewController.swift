@@ -10,6 +10,7 @@ import MapKit
 import CoreLocation
 import Hero
 import SPAlert
+import SwiftyJSON
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
 
@@ -78,6 +79,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let jsonObject: NSMutableDictionary = NSMutableDictionary()
 
         jsonObject.setValue(userUID, forKey: "uid")
+        jsonObject.setValue(locationManager.location?.coordinate.latitude, forKey: "lat")
+        jsonObject.setValue(locationManager.location?.coordinate.longitude, forKey: "lng")
 
         let jsonData: NSData
 
@@ -111,43 +114,43 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     return
                 }
                 
+                                
                 if let data = data{
                     let jsonString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
                     print(jsonString)
+                    
+                    
                     do {
-                        let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
-                
-                        if let content = jsonObject[""] as? [[String:String]] {
+                        
+                        let json = try JSON(data: data)
+                        print(json)
+
+                        
+                        for (index, object) in json {
+                            let lat = object["lat"].stringValue
+                            let lon = object["lng"].stringValue
+                            let charge = object["charge"].stringValue
                             
-                            if !content.isEmpty{
-                                for item in content {
-                                    let lat = item["lat"]
-                                    let lon = item["lng"]
-                                    let charge = item["charge"]
-                                    //object
-                                    let car = Car(lat: lat!, lon: lon!, charge: charge!)
-                                    self.carArray.append(car)
-                                    
-                                    //show cars on the map
-                                    
-                                    DispatchQueue.main.async {
-                                        var carAnnotations = [MKPointAnnotation]()
-                                        for car in self.carArray{
-                                            let carDestination = MKPointAnnotation()
-                                            let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: Double(car.lat)!, longitude: Double(car.lon)!), addressDictionary: nil)
-                                            let carAnnotation = MKPointAnnotation()
-                                            if let location = destinationPlacemark.location {
-                                                carAnnotation.coordinate = location.coordinate
-                                            }
-                                            carAnnotations.append(carAnnotation)
-                                            
-                                        }
-                                        self.mapView.showAnnotations(carAnnotations, animated: true )
-                                    }
+                            let car = Car(lat: lat, lon: lon, charge: charge)
+                            self.carArray.append(car)
+                        }
+                        
+                        //add Cars
+                        DispatchQueue.main.async {
+                            var carAnnotations = [MKPointAnnotation]()
+                            for car in self.carArray{
+                                let carDestination = MKPointAnnotation()
+                                let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: Double(car.lat)!, longitude: Double(car.lon)!), addressDictionary: nil)
+                                let carAnnotation = MKPointAnnotation()
+                                if let location = destinationPlacemark.location {
+                                    carAnnotation.coordinate = location.coordinate
                                 }
                                 
+                                carAnnotations.append(carAnnotation)
+                                
                             }
-                        }
+                        self.mapView.showAnnotations(carAnnotations, animated: true )
+                    }
                         
                     } catch let error {
                         print(error)
@@ -246,6 +249,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 }else{
                     toCoordinate = CLLocationCoordinate2D(latitude: latTo!, longitude: lonTo!)
                     self.showRouteOnMap(pickupCoordinate: fromCoordinate, destinationCoordinate: toCoordinate)
+                    self.requestCar(lat1: (self.locationManager.location?.coordinate.latitude)!, lng1: (self.locationManager.location?.coordinate.longitude)!, lat2: latTo!, lng2: lonTo!)
                 }
 
             }
@@ -266,6 +270,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 }else{
                     fromCoordinate = CLLocationCoordinate2D(latitude: lat!, longitude: lon!)
                     self.showRouteOnMap(pickupCoordinate: fromCoordinate, destinationCoordinate: toCoordinate)
+                    self.requestCar(lat1: lat!, lng1: lon!, lat2: (self.locationManager.location?.coordinate.latitude)!, lng2: (self.locationManager.location?.coordinate.longitude)!)
                 }
                 
             }
@@ -305,6 +310,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     }else{
                         toCoordinate = CLLocationCoordinate2D(latitude: latTo!, longitude: lonTo!)
                         self.showRouteOnMap(pickupCoordinate: fromCoordinate, destinationCoordinate: toCoordinate)
+                        self.requestCar(lat1: lat!, lng1: lon!, lat2: latTo!, lng2: lonTo!)
                     }
                 }
             }
@@ -312,6 +318,98 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
         return success
 
+    }
+    
+    func requestCar(lat1: Double, lng1: Double, lat2: Double, lng2: Double){
+        let jsonObject: NSMutableDictionary = NSMutableDictionary()
+        
+        jsonObject.setValue(lat1, forKey: "lat1")
+        jsonObject.setValue(lng1, forKey: "lng1")
+        jsonObject.setValue(lat2, forKey: "lat2")
+        jsonObject.setValue(lng2, forKey: "lng2")
+        jsonObject.setValue(userUID, forKey: "uid")
+        
+        let jsonData: NSData
+
+        do {
+            jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions()) as NSData
+            
+            //post data
+            guard let url = URL(string: "http://85.214.129.142:8000/route") else {
+                print("error")
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            let httpBody = jsonData
+
+            request.httpBody = httpBody as Data
+            let jsonString = NSString(data: httpBody as Data, encoding: String.Encoding.utf8.rawValue)! as String
+            print(jsonString)
+            
+            let session = URLSession.shared
+            session.dataTask(with: request) { (data, response, error) in
+                if error != nil {
+                    DispatchQueue.main.async {
+                        let alertView = SPAlertView(title: "Verbindung fehlgeschlagen!", message: "Überprüfe deine Internetverbindung und versuche es erneut.", preset: SPAlertPreset.error)
+                        alertView.present()
+                    }
+                    return
+                }
+                
+                                
+                if let data = data{
+                    let jsonString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
+                    print(jsonString)
+                    
+                    
+                    do {
+                        
+                        let json = try JSON(data: data)
+                        print(json)
+
+                        
+                        for (index, object) in json {
+                            let lat = object["lat"].stringValue
+                            let lon = object["lng"].stringValue
+                            let charge = object["charge"].stringValue
+                            
+                            let car = Car(lat: lat, lon: lon, charge: charge)
+                            self.carArray.append(car)
+                        }
+                        
+                        //add Cars
+                        DispatchQueue.main.async {
+                            var carAnnotations = [MKPointAnnotation]()
+                            for car in self.carArray{
+                                let carDestination = MKPointAnnotation()
+                                let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: Double(car.lat)!, longitude: Double(car.lon)!), addressDictionary: nil)
+                                let carAnnotation = MKPointAnnotation()
+                                if let location = destinationPlacemark.location {
+                                    carAnnotation.coordinate = location.coordinate
+                                }
+                                
+                                carAnnotations.append(carAnnotation)
+                                
+                            }
+                        self.mapView.showAnnotations(carAnnotations, animated: true )
+                    }
+                        
+                    } catch let error {
+                        print(error)
+                    }
+                }
+                
+            }.resume()
+            
+        } catch _ {
+            print ("JSON Failure")
+            print("error")
+        }
     }
     
     func removeAllAnnotations() {
@@ -340,6 +438,93 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         SPAlert.present(title: "Success", message: "", preset: .done)
         
         //send requests
+        let jsonObject: NSMutableDictionary = NSMutableDictionary()
+
+        jsonObject.setValue(userUID, forKey: "uid")
+        jsonObject.setValue(locationManager.location?.coordinate.latitude, forKey: "lat")
+        jsonObject.setValue(locationManager.location?.coordinate.longitude, forKey: "lng")
+
+        let jsonData: NSData
+
+        do {
+            jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions()) as NSData
+            
+            //post data
+            guard let url = URL(string: "http://85.214.129.142:8000/login") else {
+                print("error")
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            let httpBody = jsonData
+
+            request.httpBody = httpBody as Data
+            let jsonString = NSString(data: httpBody as Data, encoding: String.Encoding.utf8.rawValue)! as String
+            print(jsonString)
+            
+            let session = URLSession.shared
+            session.dataTask(with: request) { (data, response, error) in
+                if error != nil {
+                    DispatchQueue.main.async {
+                        let alertView = SPAlertView(title: "Verbindung fehlgeschlagen!", message: "Überprüfe deine Internetverbindung und versuche es erneut.", preset: SPAlertPreset.error)
+                        alertView.present()
+                    }
+                    return
+                }
+                
+                                
+                if let data = data{
+                    let jsonString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
+                    print(jsonString)
+                    
+                    
+                    do {
+                        
+                        let json = try JSON(data: data)
+                        print(json)
+
+                        
+                        for (index, object) in json {
+                            let lat = object["lat"].stringValue
+                            let lon = object["lng"].stringValue
+                            let charge = object["charge"].stringValue
+                            
+                            let car = Car(lat: lat, lon: lon, charge: charge)
+                            self.carArray.append(car)
+                        }
+                        
+                        //add Cars
+                        DispatchQueue.main.async {
+                            var carAnnotations = [MKPointAnnotation]()
+                            for car in self.carArray{
+                                let carDestination = MKPointAnnotation()
+                                let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: Double(car.lat)!, longitude: Double(car.lon)!), addressDictionary: nil)
+                                let carAnnotation = MKPointAnnotation()
+                                if let location = destinationPlacemark.location {
+                                    carAnnotation.coordinate = location.coordinate
+                                }
+                                
+                                carAnnotations.append(carAnnotation)
+                                
+                            }
+                        self.mapView.showAnnotations(carAnnotations, animated: true )
+                    }
+                        
+                    } catch let error {
+                        print(error)
+                    }
+                }
+                
+            }.resume()
+            
+        } catch _ {
+            print ("JSON Failure")
+            print("error")
+        }
         
     }
     
