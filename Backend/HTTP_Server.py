@@ -14,7 +14,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 
 PORT = 8000
 
-KILOMETERS_PER_PERCENT = 4
+KILOMETERS_PER_PERCENT = 5
 
 GEOFENCE_SIZE_SHOW = .3
 GEOFENCE_SIZE_START = .01
@@ -72,7 +72,7 @@ def isEnoughCharge(final_destination, destination, vehicle):
     """Return Trrue if the vehicle has enough Battery left to make the ride"""
     start = (vehicle['lat'], vehicle['lng'])
     distance = getRouteLength(start, destination) + getRouteLength(destination, final_destination)
-    needed_charge = distance/KILOMETERS_PER_PERCENT * 1.1
+    needed_charge = distance/KILOMETERS_PER_PERCENT +10
     return vehicle['charge'] >= needed_charge
 
 def filterFREEVehicles(vehicles):
@@ -126,6 +126,7 @@ def SortVehicles(final_destination, destination, vehicles):
 def getBestVehicle(final_destination, destination, vehicles):
     """Return most suited vehicle"""
     sorted = SortVehicles(final_destination, destination, vehicles)
+    print(sorted)
     if sorted:
         return sorted[0]
     else:
@@ -149,7 +150,7 @@ class requestHandler(BaseHTTPRequestHandler):
         """Handle POST requests"""
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
-        data = post_data
+        data = json.loads(post_data)
 
         if self.path[:6]=='/login':
             self.send_response(200)
@@ -162,7 +163,7 @@ class requestHandler(BaseHTTPRequestHandler):
             self.send_header('content-type', 'text/html')
             self.end_headers()
             data = post_data
-            out = getBestVehicle((data['lat2'], data['lng2']), (data['lat1'], data['lat2']), getVehicles())
+            out = getBestVehicle((data['lat2'], data['lng2']), (data['lat1'], data['lng1']), getVehicles())
             if out:
                 potential_jobs.append(createJob((data['lat1'], data['lng1']),(data['lat2'], data['lng2']), data['uid'], data['vehicleID']))
                 self.wfile.write(out.encode())
@@ -174,7 +175,11 @@ class requestHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('content-type', 'text/html')
             self.end_headers()
-            
+            if potential_jobs.__contains__(data):  # data in job format
+                jobs.append(data)
+                potential_jobs.remove(data)
+            else:
+                jobs.append(data)
             #self.wfile.write() 
             #TODO: confirm to api
         
