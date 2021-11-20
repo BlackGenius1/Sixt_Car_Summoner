@@ -23,16 +23,36 @@ GEOFENCE_STEP = .01
 
 users = [{'uid': '1111111111111111'}]
 google_maps_api_key = 'AIzaSyCYqNsvXY_BsymUGlLK2QFRuZvAKsR2YEg'
+jobs = {}
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 8748a06f856d8d68481965aa3c5b42f49e6cf5dd
 def getVehicles():
     res = requests.get('https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles')
     return res.json()
 
 def getVehicleWithId(id):
     res = requests.get(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicle/:{id}')
+
+def updateCoordinatesOfVehicle(id,lat,lng):
+    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}/coordinates', json={"lat": lat, "lng": lng},headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
+
+    print("Status code: ", res.status_code)
+    print("Printing Entire Post Request")
+    print(res.json())
+
+def updateBatteryChargeOfVehicle(id,charge):
+    if charge < 0:
+        print("Error! Charge is too low.")
+    if charge > 100:
+        print("Error! Charge is too high.")
+    else:
+        res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}/charge', json={"charge": charge},headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
+
 
 
 
@@ -104,12 +124,45 @@ def SortVehicles(final_destination, destination, vehicles):
         vehicles = postfilterVehicles(final_destination, destination, vehicles)
     return vehicles
 
+<<<<<<< HEAD
 def getBestVehicle(final_destination, destination, vehicles):
     sorted = SortVehicles(final_destination, destination, vehicles)
     if sorted:
         return sorted[0]
     else:
         return 'No fitting car found'
+=======
+class requestHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        if self.path[:6]=='/login':
+            self.send_response(200)
+            self.send_header('content-type', 'text/html')
+            self.end_headers()
+            #@TODO vehicle nach status filtern
+            self.wfile.write(str(getVehicles()).encode())
+        elif self.path[:6]=='/route':
+            self.send_response(200)
+            self.send_header('content-type', 'text/html')
+            self.end_headers()
+        elif self.path[:9]=='/confirm':
+            self.send_response(200)
+            self.send_header('content-type', 'text/html')
+            self.end_headers()
+        elif self.path[:7]=='/pickup':
+            self.send_response(200)
+            self.send_header('content-type', 'text/html')
+            self.end_headers()
+        elif self.path[:8]=='/dropoff':
+            self.send_response(200)
+            self.send_header('content-type', 'text/html')
+            self.end_headers()
+        elif self.path[:7]=='/cancel':
+            self.send_response(200)
+            self.send_header('content-type', 'text/html')
+            self.end_headers()
+        else:
+            self.send_error(404,"Error! Invalid URL.")
+>>>>>>> 8748a06f856d8d68481965aa3c5b42f49e6cf5dd
 
 class requestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
