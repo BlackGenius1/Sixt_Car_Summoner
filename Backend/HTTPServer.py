@@ -38,6 +38,10 @@ def getVehicles():
 
 def getVehicleWithId(id):
     res = requests.get(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicle/:{id}')
+    
+def dictionaryFromJson(data):
+    data_dict = json.load(data)
+    return data_dict
 
 def main():
     server = HTTPServer(('', PORT), requestHandler)
@@ -46,10 +50,8 @@ def main():
 
 if __name__ == "__main__":
     #main()
-    print(getVehicles())
+    print(dictionaryFromJson(getVehicles()))
 
 
 
-def dictionaryFromJson(data):
-    data_dict = json.load(data)
-    return data_dict
+
