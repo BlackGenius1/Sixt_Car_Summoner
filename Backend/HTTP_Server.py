@@ -115,12 +115,14 @@ def SortVehicles(final_destination, destination, vehicles):
     vehicles_duration = appendDuration(destination, vehicles)
     vehicles_duration.sort(reverse=False, key = getRouteDurationFromModifiedVehicle)
     vehicles = postfilterVehicles(final_destination, destination, vehicles)
-    while vehicles == [] and geofence < GEOFENCE_SIZE_MAX:
+    while (not vehicles) and geofence < GEOFENCE_SIZE_MAX:
         geofence += GEOFENCE_STEP
+        print(f"geofence size = {geofence}")
         vehicles = prefilterVehicles(destination, vehicles, geofence)
         vehicles_duration = appendDuration(destination, vehicles)
         vehicles_duration.sort(reverse=False, key = getRouteDurationFromModifiedVehicle)
         vehicles = postfilterVehicles(final_destination, destination, vehicles)
+    print(f"Sorted vehicles: {vehicles}")
     return vehicles
 
 def getBestVehicle(final_destination, destination, vehicles):
