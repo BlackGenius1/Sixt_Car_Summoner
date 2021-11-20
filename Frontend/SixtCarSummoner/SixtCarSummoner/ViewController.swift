@@ -13,6 +13,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
     //instances
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet weak var searchButton: UIButton!
     
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 1000
@@ -23,8 +24,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         mapView.showsUserLocation = true
         centerViewOnUserLocation()
         
+        //Button
+        searchButton.layer.cornerRadius = 32.0
     }
     
+    //MAPFUNCTIONS-------------------------------------------------------
     func setupLocationManager(){
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -49,6 +53,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
-    
+    //---------------------------------------------------------------
 
 }
