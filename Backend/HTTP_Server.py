@@ -56,7 +56,8 @@ def getRouteInfo(start, destination):
     """Get route information from the googlemaps api"""
     #vehicle_coordinates = (vehicle['lat'], vehicle['lng']) #Maybe switch lat and lng
     map_client = googlemaps.Client(google_maps_api_key)
-    route = map_client.distance_matrix(start, destination, mode='driving')#["rows"][0]["elements"][0]["distance"]["value"]
+    route = map_client.distance_matrix(start, destination, mode='driving')
+    print(f'Route: {route}')#["rows"][0]["elements"][0]["distance"]["value"]
     return route
 
 def getRouteLength(start, final_destination):
