@@ -45,7 +45,7 @@ class SearchViewController: UIViewController{
         //handle Input
         let from = fromSearchBar.text!
         let destination = destinationSearchBar.text!
-        
+
         //go to map
         let dateS:[String: String] = ["from": from, "to": destination]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "CALCULATEROUTE"), object: nil, userInfo: dateS)
