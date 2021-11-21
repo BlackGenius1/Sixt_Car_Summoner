@@ -117,7 +117,7 @@
                                         <color key="textColor" red="0.10980392156862745" green="0.13725490196078433" blue="0.1764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wde-Fq-TyV">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wde-Fq-TyV">
                                         <rect key="frame" x="20" y="44" width="244" height="43"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="26"/>
                                         <color key="textColor" red="0.10980392156862745" green="0.13725490196078433" blue="0.1764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -149,12 +149,59 @@
                                     <action selector="startRideButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VqU-I7-jJL"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kuf-ve-AU1">
+                                <rect key="frame" x="132" y="383" width="150" height="130"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching for the nearest car" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JRZ-LC-QS3">
+                                        <rect key="frame" x="9" y="70" width="133" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="dD2-EB-CGj"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
+                                        <color key="textColor" red="0.27450980390000002" green="0.2784313725" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="QXh-3J-6nv">
+                                        <rect key="frame" x="57" y="19" width="37" height="37"/>
+                                        <color key="tintColor" red="0.95686274509803915" green="0.54509803921568623" blue="0.047058823529411764" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="37" id="T00-ZK-I37"/>
+                                        </constraints>
+                                        <color key="color" red="0.95686274509803915" green="0.54509803921568623" blue="0.047058823529411764" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="JRZ-LC-QS3" secondAttribute="bottom" constant="8" id="04J-lG-JGt"/>
+                                    <constraint firstAttribute="trailing" secondItem="QXh-3J-6nv" secondAttribute="trailing" constant="56" id="0XZ-UZ-jRz"/>
+                                    <constraint firstItem="JRZ-LC-QS3" firstAttribute="leading" secondItem="Kuf-ve-AU1" secondAttribute="leading" constant="9" id="CEN-2n-YQQ"/>
+                                    <constraint firstAttribute="width" constant="150" id="O6s-gu-U5n"/>
+                                    <constraint firstAttribute="height" constant="130" id="RMA-ub-CiT"/>
+                                    <constraint firstItem="QXh-3J-6nv" firstAttribute="top" secondItem="Kuf-ve-AU1" secondAttribute="top" constant="19" id="bbR-sd-sEe"/>
+                                    <constraint firstItem="QXh-3J-6nv" firstAttribute="leading" secondItem="Kuf-ve-AU1" secondAttribute="leading" constant="57" id="cSl-iy-Hgk"/>
+                                    <constraint firstAttribute="trailing" secondItem="JRZ-LC-QS3" secondAttribute="trailing" constant="8" id="uMd-ib-IzE"/>
+                                </constraints>
+                            </view>
+                            <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQR-AN-sCe">
+                                <rect key="frame" x="40" y="777" width="65" height="65"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="9cW-CP-ByP"/>
+                                    <constraint firstAttribute="width" constant="65" id="cjf-88-VQ6"/>
+                                </constraints>
+                                <color key="tintColor" red="0.10980392156862745" green="0.13725490196078433" blue="0.1764705882352941" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="Image"/>
+                                <connections>
+                                    <action selector="spotifyButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fVr-8Z-1mc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vDk-3M-wAa" secondAttribute="trailing" constant="40" id="02k-LN-FuV"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3Hb-0g-bTw" secondAttribute="bottom" constant="20" id="5tM-rr-gPv"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="JQR-AN-sCe" secondAttribute="bottom" constant="20" id="86T-BV-noe"/>
                             <constraint firstItem="3Hb-0g-bTw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="86T-ff-4aC"/>
                             <constraint firstItem="rFb-P7-zrO" firstAttribute="leading" secondItem="cjA-mo-8VB" secondAttribute="trailing" constant="70" id="A21-5B-cC5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Hie-oi-sdQ" secondAttribute="bottom" constant="20" id="AV9-NT-H0j"/>
@@ -169,8 +216,11 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rFb-P7-zrO" secondAttribute="trailing" constant="16" id="PhU-R7-0o4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="smU-YN-idM" secondAttribute="bottom" constant="20" id="RoQ-fw-mPA"/>
                             <constraint firstItem="c5L-iU-HKw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="STF-Wo-0FB"/>
+                            <constraint firstItem="Kuf-ve-AU1" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Snc-2M-yq3"/>
                             <constraint firstItem="smU-YN-idM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WEx-rm-vaB"/>
                             <constraint firstItem="rFb-P7-zrO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="aIV-R1-j2W"/>
+                            <constraint firstItem="Kuf-ve-AU1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="brk-8D-bPt"/>
+                            <constraint firstItem="JQR-AN-sCe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="lNP-YY-RQ4"/>
                             <constraint firstItem="c5L-iU-HKw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="mtC-p0-HJv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qKY-1O-ajF" secondAttribute="trailing" id="onf-V9-dz9"/>
                             <constraint firstItem="qKY-1O-ajF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qPx-yL-yUC"/>
@@ -181,13 +231,19 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityView" destination="QXh-3J-6nv" id="fNH-kP-1DV"/>
                         <outlet property="cancelOrderButton" destination="c5L-iU-HKw" id="Je0-yi-2mO"/>
+                        <outlet property="centerConstraintStartRide" destination="WEx-rm-vaB" id="fhI-ys-Jzw"/>
+                        <outlet property="leftConstraintStartRide" destination="Cb7-j8-4HT" id="zsB-bH-1L9"/>
+                        <outlet property="loadingView" destination="Kuf-ve-AU1" id="6at-SG-PJI"/>
                         <outlet property="locationButton" destination="rFb-P7-zrO" id="I70-dm-R9p"/>
                         <outlet property="mapTypeButton" destination="o8a-jn-8KK" id="hG3-lF-ubU"/>
                         <outlet property="mapView" destination="qKY-1O-ajF" id="F07-fv-DWK"/>
                         <outlet property="orderButton" destination="Hie-oi-sdQ" id="ACN-uC-6t5"/>
+                        <outlet property="rightConstraintStartRide" destination="AvZ-UQ-9a0" id="7Rb-zD-wWm"/>
                         <outlet property="searchButton" destination="vDk-3M-wAa" id="SZ6-NO-4QJ"/>
                         <outlet property="settingsButton" destination="3Hb-0g-bTw" id="p2h-kK-qdD"/>
+                        <outlet property="spotifyButton" destination="JQR-AN-sCe" id="mQS-Eu-Phk"/>
                         <outlet property="startRideButton" destination="smU-YN-idM" id="SDP-02-JC6"/>
                         <outlet property="timeDescriptionLable" destination="7Po-Wb-4E3" id="P3x-RW-JTA"/>
                         <outlet property="timeLable" destination="Wde-Fq-TyV" id="Vc0-xR-XtD"/>
@@ -375,6 +431,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Image" width="72" height="72"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="destination" width="116" height="456"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
