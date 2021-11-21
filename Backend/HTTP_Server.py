@@ -35,13 +35,6 @@ def getVehicleWithId(id):
     res = requests.get(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicle/:{id}')
     return res.json()
 
-def updateCoordinatesOfVehicle(id,lat,lng):
-    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}/coordinates', json={"lat": lat, "lng": lng},headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
-
-    print("Status code: ", res.status_code)
-    print("Printing Entire Post Request")
-    print(res.json())
-
 def updateBatteryChargeOfVehicle(id,charge):
     if charge < 0:
         print("Error! Charge is too low.")
@@ -50,8 +43,6 @@ def updateBatteryChargeOfVehicle(id,charge):
     else:
         res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}/charge', 
         json={"charge": charge},headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
-
-def getBookingIDq()
 
 
 def getBookings():
@@ -74,6 +65,19 @@ def createBooking(pickupLat,pickupLng,destinationLat,destinationLng):
 	    "destinationLng": destinationLng},
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
     return res.json()
+
+def pickupBooking(id):
+    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/bookings/{id}/passengerGotOn')
+
+def dropoffBooking(id):
+    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/bookings/{id}/passengerGotOff')
+
+def updateVehiclePosition(lat, lng, id):
+    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}/coordinates', json={
+        "lat": lat,
+        "lng": lng
+    },headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
+
 
 
 def assignVehicleToBooking(bookingId,vehicleId):
@@ -108,7 +112,7 @@ def getRouteLength(start, final_destination):
     try:
         ret = route['rows'][0]['elements'][0]['distance']['value'] /1000
     except KeyError:
-        ret = 9999999999999999
+        ret = 999999999999999999
     return ret
 
 def isInGeofence(destination, vehicle, geofence):
@@ -145,7 +149,7 @@ def getRouteDuration(start, destination):
     try:
         ret = route['rows'][0]['elements'][0]['duration']['value']
     except KeyError:
-        ret = 9999999999999999
+        ret = 999999999999999999
     return ret
 
 def getRouteDurationFromModifiedVehicle(modified_vehicle):
@@ -185,9 +189,9 @@ def getBestVehicle(final_destination, destination, vehicles):
     else:
         return 
 
-def createJob(start, destination, uid, vehicleID, duration):############
+def createJob(start, destination, uid, vehicleID, duration, booking_id):############
     """Return job dictionary"""
-    job = {'lat1': start[0], 'lng1': start[1], 'lat2': destination[0], 'lng2': destination[1], 'uid': uid, 'vehicleID': vehicleID, 'duration': duration}############
+    job = {'lat1': start[0], 'lng1': start[1], 'lat2': destination[0], 'lng2': destination[1], 'uid': uid, 'vehicleID': vehicleID, 'duration': duration, 'bookingID': booking_id}############
     return job
 
 class requestHandler(BaseHTTPRequestHandler):
@@ -228,11 +232,13 @@ class requestHandler(BaseHTTPRequestHandler):
             #print(f'out= {out}')
             if out:
                 print(type(data), data)
-                potential_jobs.append(createJob((data['lat1'], data['lng1']),(data['lat2'], data['lng2']), data['uid'], out['vehicleID'], out['duration']))#############
+                booking_id = createBooking(data['lat1'], data['lng1'], data['lat2'], data['lng2'])
+                potential_jobs.append(createJob((data['lat1'], data['lng1']),(data['lat2'], data['lng2']), data['uid'], out['vehicleID'], out['duration'], booking_id))
                 print(f'Successful created Route for best vehicle')
                 self.wfile.write(json.dumps(out).encode())
+                
             else:
-                msg = 'No fitting car found'
+                msg = 'No suited car found'
                 self.wfile.write(msg.encode())
         
         elif self.path[:8]=='/confirm':
@@ -240,6 +246,7 @@ class requestHandler(BaseHTTPRequestHandler):
             if job_data:
                 jobs.append(job_data)
                 potential_jobs.remove(job_data)
+                assignVehicleToBooking(job_data['bookingID'], job_data['vehicleID'])
                 print(f'Successfully confirmed ride')
                 self.send_response(200)
                 self.send_header('content-type', 'text/html')
@@ -255,8 +262,11 @@ class requestHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('content-type', 'text/html')
             print(f'Successful pickup')
+            
             self.end_headers()
             job = getDictionaryByKeyFromList(jobs, 'uid', data['uid'])
+            pickupBooking(job['bookingID'])
+            updateVehiclePosition(job['lat1'], job['lng1'], job['vehicleID'])
             if job:
                 jobs.remove(job)
             else:
@@ -267,7 +277,12 @@ class requestHandler(BaseHTTPRequestHandler):
         elif self.path[:8]=='/dropoff':
             self.send_response(200)
             self.send_header('content-type', 'text/html')
+            job = getDictionaryByKeyFromList(jobs, 'uid', data['uid'])
+            dropoffBooking(job['bookingID'])
             print(f'Successful dropoff')
+            updateVehiclePosition(job['lat2'], job['lng2'], job['vehicleID'])
+            expected_charge = round(getRouteInfo((job['lat1'], job['lng1']), (job['lat2'], job['lng2']))/KILOMETERS_PER_PERCENT)
+            updateBatteryChargeOfVehicle(job['vehicleID'], expected_charge)
             self.end_headers()
             #self.wfile.write()
             #TODO: confirm dropoff/end job
@@ -278,6 +293,7 @@ class requestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             uid = data['uid']
             pot_job = getDictionaryByKeyFromList(potential_jobs, 'uid', uid)
+            cancelBookingById(pot_job['bookingID'])
             if pot_job:
                 try:
                     potential_jobs.remove(pot_job)
