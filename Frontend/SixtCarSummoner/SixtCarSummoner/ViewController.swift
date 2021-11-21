@@ -330,7 +330,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         //clear cars
         clearCars()
-        
+        orderButton.isEnabled = false
         
         let jsonObject: NSMutableDictionary = NSMutableDictionary()
         
@@ -465,6 +465,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                                     
                                                 }
                                             self.mapView.showAnnotations(carAnnotations, animated: true )
+                                                
                                         }
                                             
                                         } catch let error {
@@ -506,7 +507,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 if let location = destinationPlacemark.location {
                                     carAnnotation.coordinate = location.coordinate
                                 }
-                                
+                                self.orderButton.isEnabled = true
                                 carAnnotations.append(carAnnotation)
                                 
                             }

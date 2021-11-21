@@ -26,7 +26,7 @@ class SearchViewController: UIViewController{
             return sC
         }()
 
-    var searchSource: [MKLocalSearchCompletion]?
+    var searchSource: [String]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,16 +88,16 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = self.tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
-        cell.label.text = self.searchSource?[indexPath.row].title
+        cell.label.text = self.searchSource?[indexPath.row]//.title
             return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if isfromEditing{
-            fromSearchBar.text = searchSource?[indexPath.row].title
+            fromSearchBar.text = searchSource?[indexPath.row]//.subtitle
         }else{
-            destinationSearchBar.text = searchSource?[indexPath.row].title
+            destinationSearchBar.text = searchSource?[indexPath.row]//.title
         }
         dismissKeyboard()
         
@@ -108,7 +108,15 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
 extension SearchViewController: MKLocalSearchCompleterDelegate{
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         //get result, transform it to our needs and fill our dataSource
-        self.searchSource = completer.results.map { $0 }
+        self.searchSource = completer.results.map { $0.title + ", " + $0.subtitle }
+        
+        var counter = 0
+        for item in self.searchSource!{
+            if item.last == " "{
+                searchSource?[counter] = String(item.dropLast(2))
+            }
+            counter = counter + 1
+        }
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
