@@ -167,8 +167,8 @@ def appendDuration(destination, vehicles):
 def SortVehicles(final_destination, destination, vehicles):
     """Returns the modified vehicle list sorted by the expected traveling duration and dynamically apply a search area."""
     geofence = GEOFENCE_SIZE_START
+    vehicles = filterFREEVehicles(vehicles)
     #vehicles = prefilterVehicles(destination, vehicles, geofence)
-    vehicles = prefilterVehicles(destination, vehicles, geofence)
     vehicles_duration = appendDuration(destination, vehicles)
     vehicles_duration.sort(reverse=False, key = getRouteDurationFromModifiedVehicle)
     vehicles = postfilterVehicles(final_destination, destination, vehicles)
