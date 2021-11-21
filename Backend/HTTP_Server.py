@@ -287,7 +287,7 @@ class requestHandler(BaseHTTPRequestHandler):
             dropoffBooking(job['bookingID'])
             print(f'Successful dropoff')
             updateVehiclePosition(job['lat2'], job['lng2'], job['vehicleID'])
-            expected_charge = round(getRouteInfo((job['lat1'], job['lng1']), (job['lat2'], job['lng2']))/KILOMETERS_PER_PERCENT)
+            expected_charge = round(getRouteLength((job['lat1'], job['lng1']), (job['lat2'], job['lng2']))/KILOMETERS_PER_PERCENT)
             updateBatteryChargeOfVehicle(job['vehicleID'], expected_charge)
             self.end_headers()
             #self.wfile.write()
