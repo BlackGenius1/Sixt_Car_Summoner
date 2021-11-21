@@ -667,9 +667,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func startRideButtonClicked(_ sender: Any) {
         if isStart{
             isStart = false
-            startRideButton.titleLabel!.font = UIFont(name:"Avenir Next Demi Bold",size:24)!
             //change font
             startRideButton.setTitle("End Ride", for: .normal)
+            startRideButton.titleLabel!.font = UIFont(name:"AvenirNext-DemiBold",size:20)!
 
             timeView.layer.isHidden = true
             spotifyButton.layer.isHidden = false
@@ -772,6 +772,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     if error != nil {
                         DispatchQueue.main.async {
                             let alertView = SPAlertView(title: "Connection Error!", message: "Check your internet connection and try again.", preset: SPAlertPreset.error)
+                            self.timeView.layer.isHidden = true
                             alertView.present()
                         }
                         return
