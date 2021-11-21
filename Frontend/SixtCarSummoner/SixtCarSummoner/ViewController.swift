@@ -92,7 +92,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions()) as NSData
             
             //post data
-            guard let url = URL(string: "http://85.214.129.142:8000/login") else {
+            guard let url = URL(string: "http://85.214.129.142:8008/login") else {
                 print("error")
                 return
             }
@@ -346,7 +346,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions()) as NSData
             
             //post data
-            guard let url = URL(string: "http://85.214.129.142:8000/route") else {
+            guard let url = URL(string: "http://85.214.129.142:8008/route") else {
                 print("error")
                 return
             }
@@ -401,7 +401,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 jsonData2 = try JSONSerialization.data(withJSONObject: jsonObject2, options: JSONSerialization.WritingOptions()) as NSData
                                 
                                 //post data
-                                guard let url = URL(string: "http://85.214.129.142:8000/login") else {
+                                guard let url = URL(string: "http://85.214.129.142:8008/login") else {
                                     print("error")
                                     return
                                 }
@@ -571,7 +571,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions()) as NSData
             
             //post data
-            guard let url = URL(string: "http://85.214.129.142:8000/confirm") else {
+            guard let url = URL(string: "http://85.214.129.142:8008/confirm") else {
                 print("error")
                 return
             }
@@ -657,7 +657,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions()) as NSData
                 
                 //post data
-                guard let url = URL(string: "http://85.214.129.142:8000/pickup") else {
+                guard let url = URL(string: "http://85.214.129.142:8008/pickup") else {
                     print("error")
                     return
                 }
@@ -708,7 +708,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions()) as NSData
                 
                 //post data
-                guard let url = URL(string: "http://85.214.129.142:8000/dropoff") else {
+                guard let url = URL(string: "http://85.214.129.142:8008/dropoff") else {
                     print("error")
                     return
                 }
@@ -761,7 +761,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 jsonData2 = try JSONSerialization.data(withJSONObject: jsonObject2, options: JSONSerialization.WritingOptions()) as NSData
                 
                 //post data
-                guard let url = URL(string: "http://85.214.129.142:8000/login") else {
+                guard let url = URL(string: "http://85.214.129.142:8008/login") else {
                     print("error")
                     return
                 }
@@ -864,7 +864,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions()) as NSData
             
             //post data
-            guard let url = URL(string: "http://85.214.129.142:8000/cancel") else {
+            guard let url = URL(string: "http://85.214.129.142:8008/cancel") else {
                 print("error")
                 return
             }
@@ -910,7 +910,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             jsonData2 = try JSONSerialization.data(withJSONObject: jsonObject2, options: JSONSerialization.WritingOptions()) as NSData
             
             //post data
-            guard let url = URL(string: "http://85.214.129.142:8000/login") else {
+            guard let url = URL(string: "http://85.214.129.142:8008/login") else {
                 print("error")
                 return
             }
