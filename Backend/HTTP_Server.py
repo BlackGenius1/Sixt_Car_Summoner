@@ -79,6 +79,12 @@ def updateVehiclePosition(lat, lng, id):
         "lng": lng
     },headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
 
+def blockVehicle(id):
+    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicle/{id}/block')
+
+def unblockVehicle(id):
+    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicle/{id}/unblock')
+
 
 
 def assignVehicleToBooking(bookingId,vehicleId):
@@ -248,6 +254,7 @@ class requestHandler(BaseHTTPRequestHandler):
                 jobs.append(job_data)
                 potential_jobs.remove(job_data)
                 assignVehicleToBooking(job_data['bookingID'], job_data['vehicleID'])
+                blockVehicle(job_data['vehicleID'])
                 print(f'Successfully confirmed ride')
                 self.send_response(200)
                 self.send_header('content-type', 'text/html')
@@ -285,6 +292,7 @@ class requestHandler(BaseHTTPRequestHandler):
             else:
                 print(f"Error deleting job: {job}")
             dropoffBooking(job['bookingID'])
+            unblockVehicle(job['vehicleID'])
             print(f'Successful dropoff')
             updateVehiclePosition(job['lat2'], job['lng2'], job['vehicleID'])
             expected_charge = round(getRouteLength((job['lat1'], job['lng1']), (job['lat2'], job['lng2']))/KILOMETERS_PER_PERCENT)
