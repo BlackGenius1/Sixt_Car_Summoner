@@ -25,6 +25,7 @@ users = [{'uid': '1111111111111111'}]
 google_maps_api_key = 'AIzaSyCYqNsvXY_BsymUGlLK2QFRuZvAKsR2YEg'
 potential_jobs = []
 jobs = []
+on_ride = []
 
 
 def getVehicles():
@@ -166,7 +167,7 @@ def appendDuration(destination, vehicles):
 def SortVehicles(final_destination, destination, vehicles):
     """Returns the modified vehicle list sorted by the expected traveling duration and dynamically apply a search area."""
     geofence = GEOFENCE_SIZE_START
-    vehicles = prefilterVehicles(destination, vehicles, geofence)
+    #vehicles = prefilterVehicles(destination, vehicles, geofence)
     vehicles = prefilterVehicles(destination, vehicles, geofence)
     vehicles_duration = appendDuration(destination, vehicles)
     vehicles_duration.sort(reverse=False, key = getRouteDurationFromModifiedVehicle)
@@ -269,6 +270,7 @@ class requestHandler(BaseHTTPRequestHandler):
             updateVehiclePosition(job['lat1'], job['lng1'], job['vehicleID'])
             if job:
                 jobs.remove(job)
+                on_ride.append(job)
             else:
                 print(f"Error deleting job: {job}")
             #self.wfile.write()
@@ -277,7 +279,11 @@ class requestHandler(BaseHTTPRequestHandler):
         elif self.path[:8]=='/dropoff':
             self.send_response(200)
             self.send_header('content-type', 'text/html')
-            job = getDictionaryByKeyFromList(jobs, 'uid', data['uid'])
+            job = getDictionaryByKeyFromList(on_ride, 'uid', data['uid'])
+            if job:
+                on_ride.remove(job)
+            else:
+                print(f"Error deleting job: {job}")
             dropoffBooking(job['bookingID'])
             print(f'Successful dropoff')
             updateVehiclePosition(job['lat2'], job['lng2'], job['vehicleID'])
