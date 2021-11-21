@@ -90,8 +90,8 @@ def assignVehicleToBooking(bookingId,vehicleId):
 def getDictionaryByKeyFromList(list, key, value):
     for entry in list:
         try:
-            entry[key] == value
-            return entry
+            if entry[key] == value:
+                return entry
         except:
             continue
     return 
@@ -293,10 +293,10 @@ class requestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             uid = data['uid']
             pot_job = getDictionaryByKeyFromList(potential_jobs, 'uid', uid)
-            cancelBookingById(pot_job['bookingID'])
             if pot_job:
                 try:
                     potential_jobs.remove(pot_job)
+                    cancelBookingById(pot_job['bookingID'])
                     print(f'Successful cancellation')
                 except:
                     print(f'Error at cancellation!')
