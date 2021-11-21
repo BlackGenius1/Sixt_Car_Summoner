@@ -51,7 +51,7 @@ def updateBatteryChargeOfVehicle(id,charge):
         res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}/charge', 
         json={"charge": charge},headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
 
-
+def getBookingIDq()
 
 
 def getBookings():
@@ -75,7 +75,7 @@ def createBooking(pickupLat,pickupLng,destinationLat,destinationLng):
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
 
 def assignVehicleToBooking(bookingId,vehicleId):
-    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/bookings({bookingId}/assignVehicle/{vehicleId}')
+    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/bookings/{bookingId}/assignVehicle/{vehicleId}')
 
     print("Status code: ", res.status_code)
     print("Printing Entire Post Request")
@@ -255,6 +255,11 @@ class requestHandler(BaseHTTPRequestHandler):
             self.send_header('content-type', 'text/html')
             print(f'Successful pickup')
             self.end_headers()
+            job = getDictionaryByKeyFromList(jobs, 'uid', data['uid'])
+            if job:
+                jobs.remove(job)
+            else:
+                print(f"Error deleting job: {job}")
             #self.wfile.write()
             #TODO: confirm pickup
         
