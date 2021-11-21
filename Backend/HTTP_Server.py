@@ -12,7 +12,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
     /cancel uid=...lat=...lon=... for job cancellation
 """
 
-PORT = 8000
+PORT = 8008
 
 KILOMETERS_PER_PERCENT = 5
 
