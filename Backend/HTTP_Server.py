@@ -17,8 +17,8 @@ PORT = 8000
 KILOMETERS_PER_PERCENT = 5
 
 GEOFENCE_SIZE_SHOW = .3
-GEOFENCE_SIZE_START = .01
-GEOFENCE_SIZE_MAX = 1.5
+GEOFENCE_SIZE_START = .05
+GEOFENCE_SIZE_MAX = 0.51
 GEOFENCE_STEP = .1
 
 users = [{'uid': '1111111111111111'}]
@@ -166,7 +166,7 @@ def appendDuration(destination, vehicles):
 def SortVehicles(final_destination, destination, vehicles):
     """Returns the modified vehicle list sorted by the expected traveling duration and dynamically apply a search area."""
     geofence = GEOFENCE_SIZE_START
-    vehicles = filterFREEVehicles(vehicles)
+    vehicles = prefilterVehicles(vehicles)
     vehicles = prefilterVehicles(destination, vehicles, geofence)
     vehicles_duration = appendDuration(destination, vehicles)
     vehicles_duration.sort(reverse=False, key = getRouteDurationFromModifiedVehicle)
