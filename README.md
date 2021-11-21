@@ -10,7 +10,7 @@ Also the lack of more time was quite a challenge.
 ## Accomplishments that we're proud of
 Connecting our backend server with our App was very time intensive, but we are also very proud that we got it to work.
 ## What we learned
-Sleep is more important than you might think 😉
+Sleep is more important than you might think ;)
 We all learned different stuff that we didnt know before.
 ## What's next for Sixt Car Summoner
 We have plenty of more ideas, for example
@@ -18,4 +18,4 @@ We have plenty of more ideas, for example
 - pre heating/cooling option after you ordered a vehicle
 - division of munich in virtual districts in order to spread the non-booked roboTaxis more equally
 
-...and much more but unfortunately we didnt have enough time 😦
+...and much more but unfortunately we didnt have enough time :(
