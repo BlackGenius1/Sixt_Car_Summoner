@@ -26,6 +26,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var timeLable: UILabel!
     @IBOutlet weak var timeDescriptionLable: UILabel!
     @IBOutlet weak var startRideButton: UIButton!
+    @IBOutlet weak var activityView: UIActivityIndicatorView!
+    @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var spotifyButton: UIButton!
+    @IBOutlet weak var rightConstraintStartRide: NSLayoutConstraint!
+    @IBOutlet weak var leftConstraintStartRide: NSLayoutConstraint!
+    @IBOutlet weak var centerConstraintStartRide: NSLayoutConstraint!
+    
+    
     
     
     //TODO coordinate errors abfangen
@@ -64,6 +72,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         cancelOrderButton.layer.cornerRadius = 20.0
         timeView.layer.cornerRadius = 25.0
         startRideButton.layer.cornerRadius = 32.0
+        spotifyButton.layer.cornerRadius = 32.0
+        activityView.isHidden = true
+        loadingView.layer.cornerRadius = 20.0
+        loadingView.layer.isHidden = true
         
     }
     
@@ -112,7 +124,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             session.dataTask(with: request) { (data, response, error) in
                 if error != nil {
                     DispatchQueue.main.async {
-                        let alertView = SPAlertView(title: "Verbindung fehlgeschlagen!", message: "Überprüfe deine Internetverbindung und versuche es erneut.", preset: SPAlertPreset.error)
+                        let alertView = SPAlertView(title: "Connection failed!", message: "Check your internet connection and try again.", preset: SPAlertPreset.error)
                         alertView.present()
                     }
                     return
@@ -331,6 +343,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         //clear cars
         clearCars()
         orderButton.isEnabled = false
+        cancelOrderButton.isEnabled = false
         
         let jsonObject: NSMutableDictionary = NSMutableDictionary()
         
@@ -363,6 +376,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             print(jsonString)
             
             let session = URLSession.shared
+            self.loadingView.layer.isHidden = false
+            self.activityView.isHidden = false
+            self.activityView.startAnimating()
             session.dataTask(with: request) { (data, response, error) in
                 if error != nil {
                     DispatchQueue.main.async {
@@ -371,7 +387,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     }
                     return
                 }
-                
+
                                 
                 if let data = data{
                     let jsonString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -423,6 +439,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                         DispatchQueue.main.async {
                                             let alertView = SPAlertView(title: "Connection Error!", message: "Check your internet connection and try again.", preset: SPAlertPreset.error)
                                             alertView.present()
+                                            self.loadingView.layer.isHidden = true
+                                            self.activityView.isHidden = true
+                                            self.activityView.stopAnimating()
                                         }
                                         return
                                     }
@@ -462,6 +481,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                                     }
                                                     
                                                     carAnnotations.append(carAnnotation)
+                                                    self.loadingView.layer.isHidden = true
+                                                    self.activityView.isHidden = true
+                                                    self.activityView.stopAnimating()
                                                     
                                                 }
                                             self.mapView.showAnnotations(carAnnotations, animated: true )
@@ -478,6 +500,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                             } catch _ {
                                 print ("JSON Failure")
                                 print("error")
+                                self.loadingView.layer.isHidden = true
+                                self.activityView.isHidden = true
+                                self.activityView.stopAnimating()
                             }
                         }
                 
@@ -508,7 +533,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                     carAnnotation.coordinate = location.coordinate
                                 }
                                 self.orderButton.isEnabled = true
+                                self.cancelOrderButton.isEnabled = true
                                 carAnnotations.append(carAnnotation)
+                                self.loadingView.layer.isHidden = true
+                                self.activityView.isHidden = true
+                                self.activityView.stopAnimating()
                                 
                             }
                         self.mapView.showAnnotations(carAnnotations, animated: true )
@@ -639,9 +668,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if isStart{
             isStart = false
             startRideButton.titleLabel!.font = UIFont(name:"Avenir Next Demi Bold",size:24)!
+            //change font
             startRideButton.setTitle("End Ride", for: .normal)
-            
+
             timeView.layer.isHidden = true
+            spotifyButton.layer.isHidden = false
+            //handle constraint
+            leftConstraintStartRide.constant = 130
+            centerConstraintStartRide.constant = -30
+            rightConstraintStartRide.constant = 70
+            
             
             //server
             //show alert
@@ -693,6 +729,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             
         }else{
             startRideButton.layer.isHidden = true
+            spotifyButton.layer.isHidden = true
+            
+            //handle constraint
+            leftConstraintStartRide.constant = 100
+            centerConstraintStartRide.constant = 0
+            rightConstraintStartRide.constant = 100
             
             //endRide
             //show alert
@@ -991,10 +1033,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
-    //HTTP stuff-------------------------------------------------
-    
-    
-    
+    @IBAction func spotifyButtonClicked(_ sender: Any) {
+        SPAlert.present(title: "Spotify integration", message: "Listen to your favourite music on your ride.", preset: .message)
+    }
+
     
 }
 
