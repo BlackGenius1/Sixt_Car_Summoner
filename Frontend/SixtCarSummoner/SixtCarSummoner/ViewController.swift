@@ -366,7 +366,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             session.dataTask(with: request) { (data, response, error) in
                 if error != nil {
                     DispatchQueue.main.async {
-                        let alertView = SPAlertView(title: "Verbindung fehlgeschlagen!", message: "Überprüfe deine Internetverbindung und versuche es erneut.", preset: SPAlertPreset.error)
+                        let alertView = SPAlertView(title: "Connection Error!", message: "Check your internet connection and try again.", preset: SPAlertPreset.error)
                         alertView.present()
                     }
                     return
@@ -377,6 +377,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     let jsonString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
                     print(jsonString)
                     
+                    if jsonString == "No suited car found"{
+                        let alertView = SPAlertView(title: "No car found.", message: "There is no car available right now.", preset: SPAlertPreset.error)
+                        alertView.present()
+                        return
+                    }
                     
                     do {
                     
@@ -486,7 +491,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             session.dataTask(with: request) { (data, response, error) in
                 if error != nil {
                     DispatchQueue.main.async {
-                        let alertView = SPAlertView(title: "Verbindung fehlgeschlagen!", message: "Überprüfe deine Internetverbindung und versuche es erneut.", preset: SPAlertPreset.error)
+                        let alertView = SPAlertView(title: "Connection Error!", message: "Check your internet connection and try again.", preset: SPAlertPreset.error)
                         alertView.present()
                     }
                     return
@@ -504,6 +509,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
                         let time = jsonObject.value(forKey: "duration") as! Int
                         print(time)
+                        DispatchQueue.main.async {
+                            let calendar = Calendar.current
+                            let formatter = DateFormatter()
+                            formatter.dateFormat = "HH:mm"
+                            let startDate = Date()
+                            let new = calendar.date(byAdding: .minute, value: time / 60, to: startDate)
+                            print(formatter.string(from: new!))
+                            self.timeLable.text = formatter.string(from: new!)
+                        }
+                        
                         
                     } catch let error {
                         print(error)
@@ -522,7 +537,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func startRideButtonClicked(_ sender: Any) {
         if isStart{
             isStart = false
+            startRideButton.titleLabel!.font = UIFont(name:"Avenir Next Demi Bold",size:24)!
             startRideButton.setTitle("End Ride", for: .normal)
+            
             timeView.layer.isHidden = true
             
             //server
@@ -560,7 +577,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 session.dataTask(with: request) { (data, response, error) in
                     if error != nil {
                         DispatchQueue.main.async {
-                            let alertView = SPAlertView(title: "Verbindung fehlgeschlagen!", message: "Überprüfe deine Internetverbindung und versuche es erneut.", preset: SPAlertPreset.error)
+                            let alertView = SPAlertView(title: "Connection Error!", message: "Check your internet connection and try again.", preset: SPAlertPreset.error)
                             alertView.present()
                         }
                         return
@@ -611,7 +628,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 session.dataTask(with: request) { (data, response, error) in
                     if error != nil {
                         DispatchQueue.main.async {
-                            let alertView = SPAlertView(title: "Verbindung fehlgeschlagen!", message: "Überprüfe deine Internetverbindung und versuche es erneut.", preset: SPAlertPreset.error)
+                            let alertView = SPAlertView(title: "Connection Error!", message: "Check your internet connection and try again.", preset: SPAlertPreset.error)
                             alertView.present()
                         }
                         return
@@ -664,7 +681,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 session.dataTask(with: request) { (data, response, error) in
                     if error != nil {
                         DispatchQueue.main.async {
-                            let alertView = SPAlertView(title: "Verbindung fehlgeschlagen!", message: "Überprüfe deine Internetverbindung und versuche es erneut.", preset: SPAlertPreset.error)
+                            let alertView = SPAlertView(title: "Connection Error!", message: "Check your internet connection and try again.", preset: SPAlertPreset.error)
                             alertView.present()
                         }
                         return
@@ -767,7 +784,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             session.dataTask(with: request) { (data, response, error) in
                 if error != nil {
                     DispatchQueue.main.async {
-                        let alertView = SPAlertView(title: "Verbindung fehlgeschlagen!", message: "Überprüfe deine Internetverbindung und versuche es erneut.", preset: SPAlertPreset.error)
+                        let alertView = SPAlertView(title: "Connection Error!", message: "Check your internet connection and try again.", preset: SPAlertPreset.error)
                         alertView.present()
                     }
                     return
@@ -813,7 +830,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             session.dataTask(with: request) { (data, response, error) in
                 if error != nil {
                     DispatchQueue.main.async {
-                        let alertView = SPAlertView(title: "Verbindung fehlgeschlagen!", message: "Überprüfe deine Internetverbindung und versuche es erneut.", preset: SPAlertPreset.error)
+                        let alertView = SPAlertView(title: "Connection Error!", message: "Check your internet connection and try again.", preset: SPAlertPreset.error)
                         alertView.present()
                     }
                     return
