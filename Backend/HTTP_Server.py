@@ -323,8 +323,8 @@ def main():
     server.serve_forever()
 
 if __name__ == "__main__":
-    #main()
-    testBookings()
+    main()
+    #testBookings()
     #print(dictionaryFromJson(getVehicles()))
     #vehicles = getVehicles()
     #print(SortVehicles((48.156, 11.57),(48.144634,11.565320), vehicles))
