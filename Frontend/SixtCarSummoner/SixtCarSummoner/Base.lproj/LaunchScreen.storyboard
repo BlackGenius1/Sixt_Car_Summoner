@@ -19,30 +19,39 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchBack" translatesAutoresizingMaskIntoConstraints="NO" id="E5w-Fp-1NB">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SixtCarSummoner" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xOJ-Gl-PdZ">
+                                <rect key="frame" x="53" y="344" width="308" height="48"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="35"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="carIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Ldq-m7-Bir">
-                                <rect key="frame" x="87" y="239" width="240" height="120"/>
+                                <rect key="frame" x="87" y="159" width="240" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="CG9-1c-iVd"/>
                                     <constraint firstAttribute="width" constant="240" id="e1L-Lh-GVM"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="SixtCarSummoner" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xOJ-Gl-PdZ">
-                                <rect key="frame" x="40" y="424" width="335" height="48"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="35"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sixtcar" translatesAutoresizingMaskIntoConstraints="NO" id="dLF-fF-d9t">
+                                <rect key="frame" x="20" y="463" width="560" height="410"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="410" id="fMc-go-7HF"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="E5w-Fp-1NB" secondAttribute="bottom" id="3YV-aY-hyX"/>
+                            <constraint firstAttribute="bottom" secondItem="dLF-fF-d9t" secondAttribute="bottom" constant="23" id="9e4-Xk-LNS"/>
                             <constraint firstItem="E5w-Fp-1NB" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="JKJ-YV-Ghc"/>
                             <constraint firstItem="xOJ-Gl-PdZ" firstAttribute="top" secondItem="Ldq-m7-Bir" secondAttribute="bottom" constant="65" id="Kdj-SE-ce1"/>
-                            <constraint firstItem="xOJ-Gl-PdZ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="OmL-oS-2vg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="E5w-Fp-1NB" secondAttribute="trailing" id="WiW-QU-WLa"/>
+                            <constraint firstItem="xOJ-Gl-PdZ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-80" id="eLI-3W-lk6"/>
                             <constraint firstItem="xOJ-Gl-PdZ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="elH-MS-lvM"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dLF-fF-d9t" secondAttribute="trailing" constant="-166" id="fEV-26-y2P"/>
                             <constraint firstItem="Ldq-m7-Bir" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="qNG-1t-phf"/>
+                            <constraint firstItem="dLF-fF-d9t" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="rIl-oL-M1B"/>
                             <constraint firstItem="E5w-Fp-1NB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="rvc-CE-iZx"/>
                         </constraints>
                     </view>
@@ -55,6 +64,7 @@
     <resources>
         <image name="carIcon" width="673" height="762"/>
         <image name="launchBack" width="5758" height="6942"/>
+        <image name="sixtcar" width="400" height="253"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
