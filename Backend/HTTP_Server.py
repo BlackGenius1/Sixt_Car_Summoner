@@ -73,13 +73,15 @@ def createBooking(pickupLat,pickupLng,destinationLat,destinationLng):
         "destinationLat": destinationLat,
 	    "destinationLng": destinationLng},
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
+    return res.json()
+
 
 def assignVehicleToBooking(bookingId,vehicleId):
-    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/bookings({bookingId}/assignVehicle/{vehicleId}')
+    res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/bookings/{bookingId}/assignVehicle/{vehicleId}')
 
     print("Status code: ", res.status_code)
     print("Printing Entire Post Request")
-    print(res.json())
+    #print(res.json())
 
 def getDictionaryByKeyFromList(list, key, value):
     for entry in list:
@@ -135,7 +137,6 @@ def postfilterVehicles(final_destination, destination, vehicles):
     vehicles = list(filter(lambda x: isEnoughCharge(final_destination, destination, x), vehicles))
     return vehicles
 
-    
 def getRouteDuration(start, destination):
     """Return the duration a vehicle is expected to need to get from its position to the required destination"""
     route = getRouteInfo(start, destination)
@@ -278,6 +279,15 @@ class requestHandler(BaseHTTPRequestHandler):
         else:
             self.send_error(404,"Error! Invalid URL.")
 
+def testBookings():
+    temp = 3
+    #print(getBookings())
+    print(getBookings()[temp])
+    #cancelBookingById(getBookings()[2]["bookingID"])
+    assignVehicleToBooking(getBookings()[temp]["bookingID"],getVehicles()[2]["vehicleID"])
+    print(getBookings()[temp])
+    createBooking(40,40,30,30)
+    #print(getBookings())
 
 def main():
     server = HTTPServer(('', PORT), requestHandler)
@@ -285,7 +295,8 @@ def main():
     server.serve_forever()
 
 if __name__ == "__main__":
-    main()
+    #main()
+    testBookings()
     #print(dictionaryFromJson(getVehicles()))
     #vehicles = getVehicles()
     #print(SortVehicles((48.156, 11.57),(48.144634,11.565320), vehicles))
