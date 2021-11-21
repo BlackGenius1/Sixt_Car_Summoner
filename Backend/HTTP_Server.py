@@ -51,7 +51,7 @@ def updateBatteryChargeOfVehicle(id,charge):
         res = requests.post(f'https://us-central1-sixt-hackatum-2021.cloudfunctions.net/api/vehicles/{id}/charge', 
         json={"charge": charge},headers = {'Content-type': 'application/json', 'Accept': 'text/plain'})
 
-
+def getBookingIDq()
 
 
 def getBookings():
@@ -185,9 +185,9 @@ def getBestVehicle(final_destination, destination, vehicles):
     else:
         return 
 
-def createJob(start, destination, uid, vehicleID):
+def createJob(start, destination, uid, vehicleID, duration):############
     """Return job dictionary"""
-    job = {'lat1': start[0], 'lng1': start[1], 'lat2': destination[0], 'lng2': destination[1], 'uid': uid, 'vehicleID': vehicleID}
+    job = {'lat1': start[0], 'lng1': start[1], 'lat2': destination[0], 'lng2': destination[1], 'uid': uid, 'vehicleID': vehicleID, 'duration': duration}############
     return job
 
 class requestHandler(BaseHTTPRequestHandler):
@@ -203,7 +203,12 @@ class requestHandler(BaseHTTPRequestHandler):
         """Handle POST requests"""
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
-        data = json.loads(post_data)
+        try:
+            data = json.loads(post_data)
+        except:
+            print(f'invalid Data: {post_data}')
+            self.send_error(400,"Error!")
+            
 
         if self.path[:6]=='/login':
             self.send_response(200)
@@ -223,24 +228,26 @@ class requestHandler(BaseHTTPRequestHandler):
             #print(f'out= {out}')
             if out:
                 print(type(data), data)
-                potential_jobs.append(createJob((data['lat1'], data['lng1']),(data['lat2'], data['lng2']), data['uid'], out['vehicleID']))
+                potential_jobs.append(createJob((data['lat1'], data['lng1']),(data['lat2'], data['lng2']), data['uid'], out['vehicleID'], out['duration']))#############
                 print(f'Successful created Route for best vehicle')
                 self.wfile.write(json.dumps(out).encode())
             else:
                 msg = 'No fitting car found'
                 self.wfile.write(msg.encode())
         
-        elif self.path[:9]=='/confirm':
+        elif self.path[:8]=='/confirm':
             job_data = getDictionaryByKeyFromList(potential_jobs, 'uid', data['uid'])
             if job_data:
                 jobs.append(job_data)
                 potential_jobs.remove(job_data)
                 print(f'Successfully confirmed ride')
                 self.send_response(200)
+                self.send_header('content-type', 'text/html')
+                self.end_headers()
+                self.wfile.write(json.dumps({'duration': job_data['duration']}).encode())
             else:
                 self.send_error(404,"Error! Internal job error.")
-            self.send_header('content-type', 'text/html')
-            self.end_headers()
+            
             #self.wfile.write() 
             #TODO: confirm to api
         
@@ -249,6 +256,11 @@ class requestHandler(BaseHTTPRequestHandler):
             self.send_header('content-type', 'text/html')
             print(f'Successful pickup')
             self.end_headers()
+            job = getDictionaryByKeyFromList(jobs, 'uid', data['uid'])
+            if job:
+                jobs.remove(job)
+            else:
+                print(f"Error deleting job: {job}")
             #self.wfile.write()
             #TODO: confirm pickup
         
